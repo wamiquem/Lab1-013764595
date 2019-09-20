@@ -1,18 +1,16 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+*.DS_Store
 
-# Other files and folders
-.settings/
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+# dependencies
+node_modules
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+# testing
+coverage
+
+# production
+build
+
+# misc
+.DS_Store
+npm-debug.log
