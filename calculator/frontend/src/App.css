@@ -1,0 +1,66 @@
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 20px;
+}
+
+ol, ul {
+  padding-left: 30px;
+}
+
+.keypad-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+.key {
+  background: #fff;
+  
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 65px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 45px;
+}
+
+.key:focus {
+  outline: none;
+}
+
+.kbd-navigation .key:focus {
+  background: #ddd;
+}
+
+.calculator {
+  display: flex;
+  flex-direction: row;
+}
+
+.calculator-info {
+  margin-left: 20px;
+}
+
+.display-box {
+  
+  background: #999;
+  float: left;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 20px;
+  height: 45px;
+  margin-right: -1px;
+  margin-top: -5px;
+  overflow-wrap: break-word;
+  text-align: right;
+  width: 177px;
+  
+}
