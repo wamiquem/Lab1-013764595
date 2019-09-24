@@ -11,23 +11,22 @@ router.post('/signup',function(req,res){
     encrypt.generateHash(buyer.password, hash => {
         queries.createBuyer(buyer,hash, result => {
             console.log("Number of records inserted: " + result.affectedRows);
-            res.status(200).send({message:'Buyer created'});
+            res.status(200).send({success: true, message:'Buyer created'});
         }, err => {
             if(err.code === 'ER_DUP_ENTRY'){
-                res.status(401).send({ message: 'Email already exists. Plz sign up with a different email id' });
+                res.status(401).send({ success: false, message: 'Email already exists. Plz sign up with a different email id' });
             }else{
-                res.status(500).send({ error: `Something failed when inserting record. ${err.message}`});
+                res.status(500).send({ success: false, message: `Something failed when inserting record. ${err.message}`});
             }
         });
     }, err => {
-        res.status(500).send({ error: 'Something failed when gnerating hash' });
+        res.status(500).send({ success: false, error: 'Something failed when gnerating hash' });
     });
 });
 
 router.post('/login',function(req,res){
     console.log("Inside Buyer Login Post Request");
     console.log("Req Body : ",req.body);
-    console.log("req.body.email-",req.body.email);
 
     const email = req.body.email;
     const password = req.body.password;
@@ -36,18 +35,20 @@ router.post('/login',function(req,res){
         if(row){
             encrypt.confirmPassword(password,row.password, result => {
                 if (result){
-                    res.status(200).send({success: true, id: row.buyer_id});
+                    res.cookie('cookie',{id: row.buyer_id},{maxAge: 900000, httpOnly: false, path : '/'});
+                    req.session.user = email;
+                    res.status(200).json({success: true, message: "Buyer Login successful"});
                 }else{
-                    res.status(401).json('Incorrect Password. Please try again');
+                    res.status(401).json({success: false, message: "Incorrect Password"});
                 }
             }, err => {
-                res.status(500).json('Something wrong with bcrypt');
+                res.status(500).json({success: false, message: "Something wrong with bcrypt"});
             });
         }else{
-            res.status(401).json('Email does not exists. Please try again');
+            res.status(401).json({success: false, message: "Email does not exists. Please try again"});
         }
     }, err => {
-        res.status(500).json('Something wrong when reading the record');
+        res.status(500).json({success: false, message: "Something wrong when reading the record"});
     });
 });
 
@@ -150,6 +151,17 @@ router.post('/updateAddress',function(req,res){
     }, err => {
         res.status(500).json(`Something wrong when updating buyer address. ${err}`);
     });
+});
+
+router.get('/firstName',function(req,res){
+    console.log("Inside First Name Get Request");
+    console.log("Req Cookie : ",req.cookies);
+ 
+    queries.getBuyerFirstNameById(req.cookies.cookie.id, row => {
+        res.status(200).json({success: true, firstName: row.fname});
+    }, err => {
+        res.status(200).json({success: false, message: `Something wrong when reading buyer first name. ${err}`});
+    })
 });
 
 module.exports = router;

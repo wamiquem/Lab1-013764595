@@ -19,7 +19,7 @@ var upload = multer({ storage: storage }).single('image');
 router.post('/buyer-profile-image', (req, res) => {
     upload(req, res, function(err){
         if(err){
-            res.status(500).send({message: 'Image uploaded failed due to internal issue'});
+            res.status(500).send({message: 'Buyer Image uploaded failed due to internal issue'});
             return;
         }
         queries.updateBuyerImage({id: req.body.id, image: req.file.filename}, sqlresult => {
@@ -34,7 +34,7 @@ router.post('/buyer-profile-image', (req, res) => {
 router.post('/restaurant-image', (req, res) => {
     upload(req, res, function(err){
         if(err){
-            res.status(500).send({message: 'Image uploaded failed due to internal issue'});
+            res.status(500).send({message: 'Restaurant Image uploaded failed due to internal issue'});
             return;
         }
         queries.updateBuyerImage({id: req.body.id, image: req.file.filename}, sqlresult => {

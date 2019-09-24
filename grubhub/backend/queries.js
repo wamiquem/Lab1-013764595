@@ -37,6 +37,18 @@ queries.getBuyerPasswordById = (id, successcb, failurecb) => {
     });
 }
 
+queries.getBuyerFirstNameById = (id, successcb, failurecb) => {
+    let sql = 'SELECT fname FROM buyers WHERE buyer_id = ?';
+
+    con.query(sql, [id], function (err, row){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(row[0]);
+    });
+}
+
 queries.updateBuyerName = (buyer, successcb, failurecb) => {
     let sql = `UPDATE buyers SET fname = ?,  lname = ? WHERE buyer_id = ?`;
     let values = [buyer.fname, buyer.lname, buyer.id];
