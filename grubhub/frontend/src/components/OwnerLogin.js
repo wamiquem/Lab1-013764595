@@ -5,7 +5,7 @@ import {Redirect} from 'react-router';
 import Navbar from './Navbar';
 
 //create the Navbar Component
-class BuyerLogin extends Component {
+class OwnerLogin extends Component {
      //call the constructor method
      constructor(props){
         //Call the constrictor of Super class i.e The Component
@@ -51,7 +51,7 @@ class BuyerLogin extends Component {
             password : this.state.password
         }
 
-        fetch('http://localhost:3101/buyer/login', {
+        fetch('http://localhost:3101/owner/login', {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',
@@ -66,7 +66,6 @@ class BuyerLogin extends Component {
                 this.setState({
                     authFlag : true
                 });
-                localStorage.setItem('userType','buyer');
                 res.text().then(data => console.log(data));
             }else{
                 res.text().then(data => {
@@ -83,10 +82,10 @@ class BuyerLogin extends Component {
         .catch(err => console.log(err));
     }
     render(){
-        //if Cookie is set render Buyer Home Page
+        //if Cookie is set render Owner Home Page
         let redirectVar = null;
         if(cookie.load('cookie')){
-            redirectVar = <Redirect to= "/buyer/home"/>
+            redirectVar = <Redirect to= "/owner/home"/>
         }
         return(
             <div>
@@ -100,7 +99,7 @@ class BuyerLogin extends Component {
                         <div className="main-div">
                             <div className="panel">
                                 <h2 style= {{color:"red"}}>{this.state.message}</h2>
-                                <h2>Buyer Login</h2>
+                                <h2>Owner Login</h2>
                                 <p>Sign in with your Grubhub Account</p>
                             </div>
                             
@@ -113,7 +112,7 @@ class BuyerLogin extends Component {
                             <button onClick = {this.submitLogin} className="btn btn-primary">Login</button>                 
                         </div>
                     </div>
-                    <p><Link to="/buyer/signup" >Create Account</Link></p>
+                    <p><Link to="/owner/signup" >Create Account</Link></p>
                 </div>
             </div>
             
@@ -122,4 +121,4 @@ class BuyerLogin extends Component {
     }
 }
 
-export default BuyerLogin;
+export default OwnerLogin;

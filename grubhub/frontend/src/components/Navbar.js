@@ -12,11 +12,19 @@ class Navbar extends Component {
     //handle logout to destroy the cookie
     handleLogout = () => {
         cookie.remove('cookie', { path: '/' })
+        localStorage.removeItem('userType');
     }
+
     render(){
         //if Cookie is set render Logout Button
         let navLogin = null;
+        let navAccount = null;
         if(cookie.load('cookie')){
+            if(localStorage.getItem('userType') === 'buyer'){
+                navAccount = <li><Link to="/buyer/account">Account</Link></li>;
+            }else{
+                navAccount = <li><Link to="/owner/account">Account</Link></li>;
+            }
             console.log("Able to read cookie");
             navLogin = (
                 // <ul class="nav navbar-nav navbar-right">
@@ -27,8 +35,9 @@ class Navbar extends Component {
                     <li className="dropdown">
                         <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi,{this.props.firstName}!!! <span className="caret"></span></a>
                         <ul className="dropdown-menu">
-                            <li><a href="#">Account</a></li>
-                            <li><a href="#">Sign Out</a></li>
+                            {navAccount}
+                            {/* <li><Link to="/buyer/account">Account</Link></li> */}
+                            <li><Link to="/" onClick = {this.handleLogout}>Sign Out</Link></li>
                             {/* <li><a href="#">Something else here</a></li>
                             <li role="separator" className="divider"></li>
                             <li><a href="#">Separated link</a></li>

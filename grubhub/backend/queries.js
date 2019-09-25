@@ -49,6 +49,19 @@ queries.getBuyerFirstNameById = (id, successcb, failurecb) => {
     });
 }
 
+queries.getBuyerDetailsById = (id, successcb, failurecb) => {
+    let sql = `SELECT fname, lname, phone, street_address, unit_no, city, state, zip_code
+    FROM buyers WHERE buyer_id = ?`;
+
+    con.query(sql, [id], function (err, row){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(row[0]);
+    });
+}
+
 queries.updateBuyerName = (buyer, successcb, failurecb) => {
     let sql = `UPDATE buyers SET fname = ?,  lname = ? WHERE buyer_id = ?`;
     let values = [buyer.fname, buyer.lname, buyer.id];
@@ -103,6 +116,21 @@ queries.updateBuyerAddress = (buyer, successcb, failurecb) => {
     });
 }
 
+queries.updateBuyerProfile = (id, buyer, successcb, failurecb) => {
+    let sql = `UPDATE buyers 
+    SET fname =?, lname =?, phone = ?, street_address = ?, unit_no = ?, city = ?, state = ?, zip_code = ?
+    WHERE buyer_id = ?`;
+    let values = [buyer.fname, buyer.lname, buyer.phone, buyer.street, buyer.unit, buyer.city, buyer.state, buyer.zip, id];
+    
+    con.query(sql, values, function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
 queries.updateBuyerImage = (buyer, successcb, failurecb) => {
     let sql = `UPDATE buyers 
     SET image = ?
@@ -117,12 +145,14 @@ queries.updateBuyerImage = (buyer, successcb, failurecb) => {
     });
 }
 
+
+
 queries.createOwner = (owner, hash, successcb, failurecb) => {
     let sql = `INSERT INTO owners 
-    (email, password, fname, lname, phone, restaurant_name, zip) 
+    (email, password, fname, lname, phone, rest_name, rest_zip) 
     VALUES ?`;
-    let values = [owner.email, hash, owner.firstName, 
-        owner.lastName, owner.phone, owner.restaurantName, owner.zipCode];
+    let values = [owner.email, hash, owner.fname, 
+        owner.lname, owner.phone, owner.restName, owner.restZip];
     con.query(sql, [[values]], function (err, result){
         if (err){
             failurecb(err);
@@ -145,6 +175,31 @@ queries.getOwnerPasswordByEmail = (email, successcb, failurecb) => {
 
 queries.getOwnerPasswordById = (id, successcb, failurecb) => {
     let sql = 'SELECT password FROM owners WHERE owner_id = ?';
+
+    con.query(sql, [id], function (err, row){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(row[0]);
+    });
+}
+
+queries.getOwnerFirstNameById = (id, successcb, failurecb) => {
+    let sql = 'SELECT fname FROM owners WHERE owner_id = ?';
+
+    con.query(sql, [id], function (err, row){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(row[0]);
+    });
+}
+
+queries.getOwnerDetailsById = (id, successcb, failurecb) => {
+    let sql = `SELECT fname, lname, phone, rest_name, rest_zip
+    FROM owners WHERE owner_id = ?`;
 
     con.query(sql, [id], function (err, row){
         if (err){
@@ -184,6 +239,21 @@ queries.updateOwnerEmail = (owner, successcb, failurecb) => {
 queries.updateOwnerPassword = (owner, successcb, failurecb) => {
     let sql = `UPDATE owners SET password = ? WHERE owner_id = ?`;
     let values = [owner.password, owner.id];
+    
+    con.query(sql, values, function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
+queries.updateOwnerProfile = (id, owner, successcb, failurecb) => {
+    let sql = `UPDATE owners 
+    SET fname =?, lname =?, phone = ?, rest_name = ?, rest_zip = ?
+    WHERE owner_id = ?`;
+    let values = [owner.fname, owner.lname, owner.phone, owner.restName, owner.restZip, id];
     
     con.query(sql, values, function (err, result){
         if (err){

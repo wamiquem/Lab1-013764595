@@ -9,8 +9,14 @@ class Landing extends Component {
     render(){
         //if Cookie is set render Logout Button
         let redirectVar = null;
+        
         if(cookie.load('cookie')){
-            redirectVar = <Redirect to="/buyer/home"/>;
+            if(localStorage.getItem('userType') === 'buyer'){
+                redirectVar = <Redirect to="/buyer/home"/>;
+            }
+            else{
+                redirectVar = <Redirect to="/owner/home"/>;
+            }
         }
         
         return(
@@ -29,7 +35,9 @@ class Landing extends Component {
                     </button>
                     <br/>
                     <button type="button" class="btn btn-link">
+                    <Link to="/owner/login">
                         <span class="btn-link-format">Owner Login</span>
+                        </Link>
                     </button>
                 {/* </form> */}
                 </div>

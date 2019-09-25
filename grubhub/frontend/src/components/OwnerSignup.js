@@ -5,25 +5,25 @@ import {Redirect} from 'react-router';
 import Navbar from './Navbar';
 
 //create the Navbar Component
-class BuyerSignup extends Component {
+class OwnerSignup extends Component {
      //call the constructor method
      constructor(props){
         //Call the constrictor of Super class i.e The Component
         super(props);
         //maintain the state required for this component
         this.state = {
-            firstName : "",
-            lastName : "",
+            fname : "",
+            lname : "",
             email : "",
             password: "",
+            restName: "",
+            restZip: "",
             message: "",
+            phone: "",
             success: false
         }
         //Bind the handlers to this class
-        this.fnameChangeHandler = this.fnameChangeHandler.bind(this);
-        this.lnameChangeHandler = this.lnameChangeHandler.bind(this);
-        this.emailChangeHandler = this.emailChangeHandler.bind(this);
-        this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
+        this.changeHandler = this.changeHandler.bind(this);
         this.submitSignup = this.submitSignup.bind(this);
     }
 
@@ -35,40 +35,28 @@ class BuyerSignup extends Component {
     }
 
     //Name and email change handlers to update state variable with the text entered by the user
-    fnameChangeHandler = (e) => {
+    changeHandler = (e) => {
         this.setState({
-            firstName : e.target.value
+            [e.target.name] : e.target.value
         })
     }
-    lnameChangeHandler = (e) => {
-        this.setState({
-            lastName : e.target.value
-        })
-    }
-    emailChangeHandler = (e) => {
-        this.setState({
-            email : e.target.value
-        })
-    }
-    //password change handler to update state variable with the text entered by the user
-    passwordChangeHandler = (e) => {
-        this.setState({
-            password : e.target.value
-        })
-    }
+    
     //submit Login handler to send a request to the node backend
     submitSignup = (e) => {
         var headers = new Headers();
         //prevent page from refresh
         e.preventDefault();
         const data = {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
+            fname: this.state.fname,
+            lname: this.state.lname,
             email : this.state.email,
-            password : this.state.password
+            password : this.state.password,
+            restName: this.state.restName,
+            restZip: this.state.restZip,
+            phone: this.state.phone
         }
 
-        fetch('http://localhost:3101/buyer/signup', {
+        fetch('http://localhost:3101/owner/signup', {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',
@@ -102,13 +90,13 @@ class BuyerSignup extends Component {
         .catch(err => console.log(err));
     }
     render(){
-        //if Cookie is set render Buyer Home Page
+        //if Cookie is set render Owner Home Page
         let redirectVar = null;
         // if(cookie.load('cookie')){
-        //     redirectVar = <Redirect to= "/buyer/home"/>
+        //     redirectVar = <Redirect to= "/owner/home"/>
         // }
         if(this.state.success){
-            redirectVar = <Redirect to= "/buyer/login"/>
+            redirectVar = <Redirect to= "/owner/login"/>
         }
         return(
             <div>
@@ -122,26 +110,35 @@ class BuyerSignup extends Component {
                         <div className="main-div">
                             <div className="panel">
                             <h2 style= {{color:"red"}}>{this.state.message}</h2>
-                                <h2>Buyer Signup</h2>
+                                <h2>Owner Signup</h2>
                                 <p>Create your account</p>
                             </div>
                             
                             <div className="form-group">
-                                <input onChange = {this.fnameChangeHandler} type="text" className="form-control" name="fname" placeholder="First Name"/>
+                                <input onChange = {this.changeHandler} type="text" className="form-control" name="fname" placeholder="First Name"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.lnameChangeHandler} type="text" className="form-control" name="lname" placeholder="Last Name"/>
+                                <input onChange = {this.changeHandler} type="text" className="form-control" name="lname" placeholder="Last Name"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.emailChangeHandler} type="email" className="form-control" name="email" placeholder="Email"/>
+                                <input onChange = {this.changeHandler} type="email" className="form-control" name="email" placeholder="Email"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.passwordChangeHandler} type="password" className="form-control" name="password" placeholder="Password"/>
+                                <input onChange = {this.changeHandler} type="password" className="form-control" name="password" placeholder="Password"/>
+                            </div>
+                            <div className="form-group">
+                                <input onChange = {this.changeHandler} type="text" className="form-control" name="phone" placeholder="Phone"/>
+                            </div>
+                            <div className="form-group">
+                                <input onChange = {this.changeHandler} type="text" className="form-control" name="restName" placeholder="Restaurant Name"/>
+                            </div>
+                            <div className="form-group">
+                                <input onChange = {this.changeHandler} type="text" className="form-control" name="restZip" placeholder="Restaurant Zip"/>
                             </div>
                             <button onClick = {this.submitSignup} className="btn btn-primary">Create Account</button>                 
                         </div>
                     </div>
-                    <p>Have Account? <Link to="/buyer/login" >Login</Link></p>
+                    <p>Have Account? <Link to="/owner/login" >Login</Link></p>
                 </div>
             </div>
             
@@ -150,4 +147,4 @@ class BuyerSignup extends Component {
     }
 }
 
-export default BuyerSignup;
+export default OwnerSignup;

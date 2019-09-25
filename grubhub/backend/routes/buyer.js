@@ -142,7 +142,7 @@ router.post('/updatePassword',function(req,res){
 });
 
 router.post('/updateAddress',function(req,res){
-    console.log("Inside Update Password Post Request");
+    console.log("Inside Buyer Update Password Post Request");
     console.log("Req Body : ",req.body);
 
     queries.updateBuyerAddress(req.body, sqlresult => {
@@ -153,12 +153,36 @@ router.post('/updateAddress',function(req,res){
     });
 });
 
+router.post('/updateProfile',function(req,res){
+    console.log("Inside Buyer Update Profile Post Request");
+    console.log("Req Body : ",req.body);
+
+    queries.updateBuyerProfile(req.cookies.cookie.id, req.body, sqlresult => {
+        console.log("Number of records updated: " + sqlresult.affectedRows);
+        res.status(200).send({message:'Buyer profile updated succesfully.'});    
+    }, err => {
+        res.status(500).json(`Something wrong when updating buyer profile. ${err}`);
+    });
+});
+
 router.get('/firstName',function(req,res){
     console.log("Inside First Name Get Request");
     console.log("Req Cookie : ",req.cookies);
  
     queries.getBuyerFirstNameById(req.cookies.cookie.id, row => {
         res.status(200).json({success: true, firstName: row.fname});
+    }, err => {
+        res.status(500).json({success: false, message: `Something wrong when reading buyer first name. ${err}`});
+    })
+});
+
+router.get('/details',function(req,res){
+    console.log("Inside Details Get Request");
+    console.log("Req Cookie : ",req.cookies);
+ 
+    queries.getBuyerDetailsById(req.cookies.cookie.id, row => {
+        res.status(200).json({success: true, firstName: row.fname, lastName: row.lname, phone: row.phone,
+            street: row.street_address, unit: row.unit_no, city: row.city, state: row.state, zip: row.zip_code});
     }, err => {
         res.status(200).json({success: false, message: `Something wrong when reading buyer first name. ${err}`});
     })

@@ -5,7 +5,7 @@ import {Redirect} from 'react-router';
 import Navbar from './Navbar';
 
 //create the Navbar Component
-class BuyerHome extends Component {
+class OwnerHome extends Component {
      //call the constructor method
      constructor(props){
         //Call the constrictor of Super class i.e The Component
@@ -17,10 +17,10 @@ class BuyerHome extends Component {
         
     }
 
-    //get the first name of buyer from backend  
+    //get the first name of owner from backend  
     componentDidMount(){
             if(cookie.load('cookie')){
-            fetch('http://localhost:3101/buyer/firstName',{
+            fetch('http://localhost:3101/owner/firstName',{
             credentials: 'include'
             })
             .then(res => res.json())
@@ -50,4 +50,4 @@ class BuyerHome extends Component {
     }
 }
 
-export default BuyerHome;
+export default OwnerHome;
