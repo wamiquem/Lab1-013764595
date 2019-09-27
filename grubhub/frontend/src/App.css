@@ -40,6 +40,23 @@
   color: #0070eb;
 }
 
+.profile-image {
+  height: 100px; 
+  width: 100px;
+  padding-left: 10px;
+  margin-block-end: 35px;
+
+}
+
+.profile-image .img-thumbnail{
+  height: 100%; 
+  width: 100%;
+}
+
+.user-image .upload-image{
+  padding-bottom: 10px;
+}
+
 .login-form .form-group {
   margin-bottom:10px;
 }
@@ -124,4 +141,8 @@
 
  .form-inline .form-control {
   width: 100%;
+}
+
+[hidden] {
+  display: none !important;
 }

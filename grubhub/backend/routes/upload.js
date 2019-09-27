@@ -17,16 +17,35 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).single('image');
 
 router.post('/buyer-profile-image', (req, res) => {
+    console.log("Inside buyer profile pic post Request");
+
     upload(req, res, function(err){
         if(err){
-            res.status(500).send({message: 'Buyer Image uploaded failed due to internal issue'});
+            res.status(500).send({message: `Buyer Image uploaded failed due to internal issue. ${err}`});
             return;
         }
-        queries.updateBuyerImage({id: req.body.id, image: req.file.filename}, sqlresult => {
+        queries.updateBuyerImage({id: req.cookies.cookie.id, image: req.file.filename}, sqlresult => {
             console.log("Number of records updated: " + sqlresult.affectedRows);
             res.status(200).send({message:'Buyer image updated succesfully.'});    
         }, err => {
             res.status(500).json(`Something wrong when updating buyer image in the table. ${err}`);
+        }); 
+    });
+});
+
+router.post('/owner-profile-image', (req, res) => {
+    console.log("Inside owner profile pic post Request");
+
+    upload(req, res, function(err){
+        if(err){
+            res.status(500).send({message: `Owner Image uploaded failed due to internal issue. ${err}`});
+            return;
+        }
+        queries.updateOwnerImage({id: req.cookies.cookie.id, image: req.file.filename}, sqlresult => {
+            console.log("Number of records updated: " + sqlresult.affectedRows);
+            res.status(200).send({message:'Owner image updated succesfully.'});    
+        }, err => {
+            res.status(500).json(`Something wrong when updating owner image in the table. ${err}`);
         }); 
     });
 });

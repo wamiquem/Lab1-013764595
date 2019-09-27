@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const queries = require('../queries');
 const encrypt = require('../encrypt');
+const path = require('path');
 
 router.post('/signup',function(req,res){
     console.log("Inside Buyer signup Post Request");
@@ -166,8 +167,8 @@ router.post('/updateProfile',function(req,res){
 });
 
 router.get('/firstName',function(req,res){
-    console.log("Inside First Name Get Request");
-    console.log("Req Cookie : ",req.cookies);
+    console.log("Inside buyer First Name Get Request");
+    console.log("Req Cookie : ",req.body);
  
     queries.getBuyerFirstNameById(req.cookies.cookie.id, row => {
         res.status(200).json({success: true, firstName: row.fname});
@@ -177,8 +178,8 @@ router.get('/firstName',function(req,res){
 });
 
 router.get('/details',function(req,res){
-    console.log("Inside Details Get Request");
-    console.log("Req Cookie : ",req.cookies);
+    console.log("Inside buyer Details Get Request");
+    console.log("Req Cookie : ",req.body);
  
     queries.getBuyerDetailsById(req.cookies.cookie.id, row => {
         res.status(200).json({success: true, firstName: row.fname, lastName: row.lname, phone: row.phone,
@@ -187,5 +188,16 @@ router.get('/details',function(req,res){
         res.status(200).json({success: false, message: `Something wrong when reading buyer first name. ${err}`});
     })
 });
+
+router.get('/profilePic',function(req,res){
+    console.log("Inside buyer profile pic Get Request");
+ 
+    queries.getBuyerImageNameById(req.cookies.cookie.id, row => {
+        res.sendFile(path.join(__dirname, `../uploads/${row.image}`));
+    }, err => {
+        res.status(500).json({success: false, message: `Something wrong when reading buyer image. ${err}`});
+    })
+});
+
 
 module.exports = router;

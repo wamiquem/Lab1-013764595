@@ -61,7 +61,6 @@ class BuyerLogin extends Component {
             body: JSON.stringify(data)
         })
         .then(res => {
-            console.log(res);
             if(res.status === 200){
                 this.setState({
                     authFlag : true

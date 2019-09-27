@@ -25,7 +25,7 @@ class BuyerAccount extends Component {
     componentDidMount(){
         if(cookie.load('cookie')){
             fetch('http://localhost:3101/buyer/details',{
-            credentials: 'include'
+                credentials: 'include'
              })
             .then(res => res.json())
             .then(data => {
@@ -41,6 +41,16 @@ class BuyerAccount extends Component {
                 });
             })
             .catch(err => console.log(err));
+
+            fetch('http://localhost:3101/buyer/profilePic',{
+                credentials: 'include'
+            })
+            .then(res => res.blob())
+            .then(resAsBlob => {
+                this.setState({
+                    imgURL: URL.createObjectURL(resAsBlob)
+                });
+            })
         }
     }
 

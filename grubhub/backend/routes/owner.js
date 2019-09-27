@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const queries = require('../queries');
 const encrypt = require('../encrypt');
+const path = require('path');
 
 router.post('/signup',function(req,res){
     console.log("Inside Owner signup Post Request");
@@ -132,8 +133,8 @@ router.post('/updatePassword',function(req,res){
 });
 
 router.get('/firstName',function(req,res){
-    console.log("Inside First Name Get Request");
-    console.log("Req Cookie : ",req.cookies);
+    console.log("Inside Owner First Name Get Request");
+    console.log("Req Body : ",req.body);
  
     queries.getOwnerFirstNameById(req.cookies.cookie.id, row => {
         res.status(200).json({success: true, firstName: row.fname});
@@ -156,13 +157,24 @@ router.post('/updateProfile',function(req,res){
 
 router.get('/details',function(req,res){
     console.log("Inside Owner Details Get Request");
-    console.log("Req Cookie : ",req.cookies);
+    console.log("Req Body : ",req.body);
  
     queries.getOwnerDetailsById(req.cookies.cookie.id, row => {
         res.status(200).json({success: true, firstName: row.fname, lastName: row.lname, phone: row.phone,
             restName: row.rest_name, restZip: row.rest_zip});
     }, err => {
         res.status(200).json({success: false, message: `Something wrong when reading buyer first name. ${err}`});
+    })
+});
+
+router.get('/profilePic',function(req,res){
+    console.log("Inside Owner profile pic Get Request");
+    console.log("Req Body : ",req.body);
+ 
+    queries.getOwnerImageNameById(req.cookies.cookie.id, row => {
+        res.sendFile(path.join(__dirname, `../uploads/${row.image}`));
+    }, err => {
+        res.status(500).json({success: false, message: `Something wrong when reading owner image. ${err}`});
     })
 });
 

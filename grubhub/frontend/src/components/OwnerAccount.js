@@ -25,7 +25,7 @@ class OwnerAccount extends Component {
     componentDidMount(){
         if(cookie.load('cookie')){
             fetch('http://localhost:3101/owner/details',{
-            credentials: 'include'
+                credentials: 'include'
              })
             .then(res => res.json())
             .then(data => {
@@ -38,6 +38,16 @@ class OwnerAccount extends Component {
                 });
             })
             .catch(err => console.log(err));
+
+            fetch('http://localhost:3101/owner/profilePic',{
+                credentials: 'include'
+            })
+            .then(res => res.blob())
+            .then(resAsBlob => {
+                this.setState({
+                    imgURL: URL.createObjectURL(resAsBlob)
+                });
+            })
         }
     }
 
