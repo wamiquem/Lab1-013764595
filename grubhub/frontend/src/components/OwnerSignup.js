@@ -1,10 +1,9 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
-import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import Navbar from './Navbar';
 
-//create the Navbar Component
+//create the Owner Signup Component
 class OwnerSignup extends Component {
      //call the constructor method
      constructor(props){
@@ -25,6 +24,7 @@ class OwnerSignup extends Component {
         //Bind the handlers to this class
         this.changeHandler = this.changeHandler.bind(this);
         this.submitSignup = this.submitSignup.bind(this);
+        this.createStorage = this.createStorage.bind(this);
     }
 
     //Call the Did Mount to set the auth Flag to false
@@ -70,10 +70,19 @@ class OwnerSignup extends Component {
             if(res.status === 200){
                 res.text().then(data => { 
                     console.log(data);
+                    
+                    
+                    this.createStorage({id:JSON.parse(data).id,restName: this.state.restName,restZip: this.state.restZip},
+                        message => {
+                        console.log(message);
+                        }
+                    )
                     this.setState({
                         success : true
                     });
-
+                    // localStorage.setItem("ownerId",JSON.parse(data).id);
+                    // localStorage.setItem("restaurantName", this.state.restName);
+                    // localStorage.setItem("restaurantZip", this.state.restZip);
                 });
             }else{
                 res.text().then(data => {
@@ -89,20 +98,25 @@ class OwnerSignup extends Component {
         })
         .catch(err => console.log(err));
     }
+
+    createStorage = ({id, restName, restZip}, successcb) => {
+        localStorage.setItem("ownerId",id);
+        localStorage.setItem("restaurantName", restName);
+        localStorage.setItem("restaurantZip", restZip);
+        successcb("Local Storage created");
+    }
+
     render(){
         //if Cookie is set render Owner Home Page
         let redirectVar = null;
-        // if(cookie.load('cookie')){
-        //     redirectVar = <Redirect to= "/owner/home"/>
-        // }
         if(this.state.success){
-            redirectVar = <Redirect to= "/owner/login"/>
+            redirectVar = <Redirect to= "/owner/addRestaurant"/>
         }
         return(
             <div>
                 {redirectVar}
 
-                <Navbar/>
+                {/* <Navbar/> */}
                 
                 <div className="container">
                     

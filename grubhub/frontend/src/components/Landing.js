@@ -4,7 +4,7 @@ import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import burger from '../images/main_page_burger.jpg'
 
-//create the Navbar Component
+//create the Landing Component
 class Landing extends Component {
     render(){
         //if Cookie is set render Logout Button
@@ -22,26 +22,26 @@ class Landing extends Component {
         return(
                 <div class="container-fluid">
                 {redirectVar}
-                <div class = "login-image">
-                    <img width = '100%' height = 'auto' src={burger} alt="Responsive image"></img>
-                </div>
-                {/* <form class="login-form"> */}
-                <h1 style={{'font-family': "Impact",color:"red", 'font-size':'25px'}} className="page-header text-center">Welcome to GRUBHUB</h1>
-                <div class = "login-links">
-                    <button type="button" class="btn btn-link">
-                    <Link to="/buyer/login">
-                        <span class="btn-link-format">Buyer Login</span>
-                    </Link>
-                    </button>
-                    <br/>
-                    <button type="button" class="btn btn-link">
-                    <Link to="/owner/login">
-                        <span class="btn-link-format">Owner Login</span>
+                    <div class = "login-image">
+                        <img width = '100%' height = 'auto' src={burger} alt="Responsive image"></img>
+                    </div>
+                    <h1 style={{'font-family': "Impact",color:"red", 'font-size':'25px'}} 
+                    className="page-header text-center">Welcome to GRUBHUB</h1>
+                    <div class = "login-links">
+                        <button type="button" class="btn btn-link">
+                        <Link to="/buyer/login">
+                            <span class="btn-link-format">Buyer Login</span>
                         </Link>
-                    </button>
-                {/* </form> */}
+                        </button>
+                        <br/>
+                        <button type="button" class="btn btn-link">
+                        <Link to="/owner/login">
+                            <span class="btn-link-format">Owner Login</span>
+                            </Link>
+                        </button>
+                    {/* </form> */}
+                    </div>
                 </div>
-            </div>
         
         )
     }

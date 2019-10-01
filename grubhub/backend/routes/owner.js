@@ -12,7 +12,7 @@ router.post('/signup',function(req,res){
     encrypt.generateHash(owner.password, hash => {
         queries.createOwner(owner, hash, result => {
             console.log("Number of records inserted: " + result.affectedRows);
-            res.status(200).send({success: true, message:'Owner created'});
+            res.status(200).send({success: true, id: result.insertId, message:'Owner created'});
         }, err => {
             if(err.code === 'ER_DUP_ENTRY'){
                 res.status(401).send({success: false, message: `Email already exists. Plz sign up with a different email id. ${err.message}` });
@@ -36,7 +36,7 @@ router.post('/login',function(req,res){
         if(row){
             encrypt.confirmPassword(password,row.password, result => {
                 if (result){
-                    res.cookie('cookie',{id: row.owner_id},{maxAge: 900000, httpOnly: false, path : '/'});
+                    res.cookie('cookie',{id: row.id},{maxAge: 900000, httpOnly: false, path : '/'});
                     req.session.user = email;
                     res.status(200).json({success: true, message: "Owner Login successful"});
                 }else{
@@ -49,7 +49,7 @@ router.post('/login',function(req,res){
             res.status(401).json({success: false, message: "Email does not exists. Please try again"});
         }
     }, err => {
-        res.status(500).json({success: false, message: "Something wrong when reading the record"});
+        res.status(500).json({success: false, message: `Something wrong when reading the record. ${err}`});
     });
 });
 
@@ -135,7 +135,7 @@ router.post('/updatePassword',function(req,res){
 router.get('/firstName',function(req,res){
     console.log("Inside Owner First Name Get Request");
     console.log("Req Body : ",req.body);
- 
+
     queries.getOwnerFirstNameById(req.cookies.cookie.id, row => {
         res.status(200).json({success: true, firstName: row.fname});
     }, err => {
@@ -176,6 +176,19 @@ router.get('/profilePic',function(req,res){
     }, err => {
         res.status(500).json({success: false, message: `Something wrong when reading owner image. ${err}`});
     })
+});
+
+router.post('/addRestaurant',function(req,res){
+    console.log("Inside add Restaurant Post Request");
+    console.log("Req Body : ",req.body);
+    const restaurant = req.body;
+
+    queries.createRestaurant(restaurant, result => {
+        console.log("Number of records inserted: " + result.affectedRows);
+        res.status(200).send({success: true, message:'Restaurant added successfully'});
+    }, err => {
+        res.status(500).send({success: false, message: `Something failed when inserting record. ${err.message}`});
+    });
 });
 
 module.exports = router;

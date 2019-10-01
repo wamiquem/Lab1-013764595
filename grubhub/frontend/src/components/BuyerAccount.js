@@ -60,9 +60,6 @@ class BuyerAccount extends Component {
         if(!cookie.load('cookie')){
             redirectVar = <Redirect to= "/buyer/login"/>
         }
-        // if(this.state.success){
-        //     redirectVar = <Redirect to= "/buyer/login"/>
-        // }
         return(
             <div>
                 {redirectVar}

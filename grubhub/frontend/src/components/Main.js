@@ -6,18 +6,17 @@ import Owner from './Owner';
 
 //Create a Main Component
 class Main extends Component {
-    
     render(){
         return(
             <div>
-                asdas
-                <div style={{border:"1px solid black"}}>
+                {/* <div style={{border:"1px solid black"}}> */}
                 <Switch>
                     <Route path="/" exact component={Landing}/>
+                    {/* <Route path="/buyer"  component={Buyer}/> */}
                     <Route path="/buyer/:id"  component={Buyer}/>
                     <Route path="/owner/:id"  component={Owner}/>
                 </Switch>
-                </div>
+                {/* </div> */}
             </div>
         )
     }

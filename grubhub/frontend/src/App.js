@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import './Sidebar.css';
 import Main from './components/Main';
 import {HashRouter} from 'react-router-dom';
 

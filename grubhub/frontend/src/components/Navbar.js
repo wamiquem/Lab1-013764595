@@ -7,6 +7,7 @@ import {Redirect} from 'react-router';
 class Navbar extends Component {
     constructor(props){
         super(props);
+        console.log("889989898= ", this.props);
         this.handleLogout = this.handleLogout.bind(this);
     }
     //handle logout to destroy the cookie
@@ -19,11 +20,14 @@ class Navbar extends Component {
         //if Cookie is set render Logout Button
         let navLogin = null;
         let navAccount = null;
+        let navRestaurant = null;
         if(cookie.load('cookie')){
             if(localStorage.getItem('userType') === 'buyer'){
                 navAccount = <li><Link to="/buyer/account">Account</Link></li>;
             }else{
-                navAccount = <li><Link to="/owner/account">Account</Link></li>;
+                navAccount = <li><Link to="/owner/account/profile">Account</Link></li>;
+                navRestaurant = <li><Link to="/owner/restaurant/profile">Restaurant</Link></li>;
+
             }
             console.log("Able to read cookie");
             navLogin = (
@@ -36,7 +40,8 @@ class Navbar extends Component {
                         <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi,{this.props.firstName}!!! <span className="caret"></span></a>
                         <ul className="dropdown-menu">
                             {navAccount}
-                            {/* <li><Link to="/buyer/account">Account</Link></li> */}
+                            {navRestaurant}
+                            <li role="separator" className="divider"></li>
                             <li><Link to="/" onClick = {this.handleLogout}>Sign Out</Link></li>
                             {/* <li><a href="#">Something else here</a></li>
                             <li role="separator" className="divider"></li>
@@ -52,7 +57,7 @@ class Navbar extends Component {
         
         return(
             <div>
-            <nav className="navbar navbar">
+            <nav className="navbar">
                     <div className="container-fluid">
                         <div className="navbar-header">
                             {/* <a class="navbar-brand" href="#">Book Store App</a> */}

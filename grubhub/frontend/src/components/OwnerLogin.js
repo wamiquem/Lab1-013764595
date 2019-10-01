@@ -4,7 +4,7 @@ import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import Navbar from './Navbar';
 
-//create the Navbar Component
+//create the OwnerLogin Component
 class OwnerLogin extends Component {
      //call the constructor method
      constructor(props){

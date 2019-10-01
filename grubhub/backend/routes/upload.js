@@ -53,14 +53,14 @@ router.post('/owner-profile-image', (req, res) => {
 router.post('/restaurant-image', (req, res) => {
     upload(req, res, function(err){
         if(err){
-            res.status(500).send({message: 'Restaurant Image uploaded failed due to internal issue'});
+            res.status(500).send({message: `Restaurant Image uploaded failed due to internal issue. ${err}`});
             return;
         }
-        queries.updateBuyerImage({id: req.body.id, image: req.file.filename}, sqlresult => {
+        queries.updateRestaurantImage({id: req.body.id, image: req.file.filename}, sqlresult => {
             console.log("Number of records updated: " + sqlresult.affectedRows);
-            res.status(200).send({message:'Buyer image updated succesfully.'});    
+            res.status(200).send({message:'Restaurant image updated succesfully.'});    
         }, err => {
-            res.status(500).json(`Something wrong when updating buyer image in the table. ${err}`);
+            res.status(500).json(`Something wrong when updating restaurant image in the table. ${err}`);
         }); 
     });
 });

@@ -1,70 +1,36 @@
 import React,{Component} from 'react';
-import {Link} from 'react-router-dom';
+import { Switch, Route ,Link} from 'react-router-dom';
 import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import Navbar from './Navbar';
+import OwnerSignup from './OwnerSignup';
+import Sidebar from './Sidebar';
 import OwnerProfile from './OwnerProfile';
 
 //create the Navbar Component
 class OwnerAccount extends Component {
-     //call the constructor method
-     constructor(props){
-        //Call the constrictor of Super class i.e The Component
-        super(props);
-        this.state = {
-            
-        }
-        // this.handleUpdate = this.handleUpdate.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e) {
-        this.setState({ [e.name]: e.value });
-    }
-
-    componentDidMount(){
-        if(cookie.load('cookie')){
-            fetch('http://localhost:3101/owner/details',{
-                credentials: 'include'
-             })
-            .then(res => res.json())
-            .then(data => {
-                this.setState({
-                    fname: data.firstName,
-                    lname: data.lastName,
-                    phone: data.phone,
-                    restName: data.restName,
-                    restZip: data.restZip
-                });
-            })
-            .catch(err => console.log(err));
-
-            fetch('http://localhost:3101/owner/profilePic',{
-                credentials: 'include'
-            })
-            .then(res => res.blob())
-            .then(resAsBlob => {
-                this.setState({
-                    imgURL: URL.createObjectURL(resAsBlob)
-                });
-            })
-        }
-    }
 
     render(){
-        //if Cookie is set render Owner Home Page
-        let redirectVar = null;
-        if(!cookie.load('cookie')){
-            redirectVar = <Redirect to= "/owner/login"/>
-        }
-        // if(this.state.success){
-        //     redirectVar = <Redirect to= "/owner/login"/>
-        // }
+      let redirectVar = null;
+      if(!cookie.load('cookie')){
+                redirectVar = <Redirect to= "/owner/login"/>
+      }
         return(
-            <div>
+            <div >
                 {redirectVar}
-                <Navbar firstName = {this.state.fname}/>
-                <OwnerProfile ownerDetails = {this.state} onChange={this.handleChange}/>
+                <Navbar/>
+                <Sidebar options = {['Profile']} module = {'account'}/>
+                <div >
+                  <Switch>
+                      <Route path="/owner/account/profile" component={OwnerProfile}/>
+                      {/* <Route path="/owner/account/sections" component={Section}/> */}
+
+                      {/* <Route path = {match.url} component={OwnerLogin}/>
+                      <Route path = {match.url} component={OwnerHome}/>
+                      <Route path = {match.url} component={OwnerSignup}/>
+                      <Route path = {match.url} component={OwnerAccount}/> */}
+                  </Switch>
+                </div>
             </div>
         )
     }

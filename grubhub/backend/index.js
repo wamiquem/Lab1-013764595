@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 
 var buyer = require('./routes/buyer');
 var owner = require('./routes/owner');
+var restaurant = require('./routes/restaurant');
 var upload = require('./routes/upload');
 
 //use cors to allow cross origin resource sharing
@@ -36,6 +37,7 @@ app.use(bodyParser.json());
 app.use('/buyer', buyer);
 app.use('/owner', owner);
 app.use('/upload', upload);
+app.use('/restaurant', restaurant);
 
 //start your server on port 3101
 app.listen(3101);

@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import cookie from 'react-cookies';
 
 //create the Owner Profile Component
 class OwnerProfile extends Component {
@@ -10,15 +11,52 @@ class OwnerProfile extends Component {
         this.editProfile = this.editProfile.bind(this);
         this.cancelEdit = this.cancelEdit.bind(this);
         this.state = {
+            fname: "",
+            lname: "",
+            phone: "",
+            restName: "",
+            restZip: "",
             message: "",
+            imgURL: "",
             isEditable:false,
             isNewImage: false
         }
     }
     
+    componentDidMount(){
+        if(cookie.load('cookie')){
+            fetch('http://localhost:3101/owner/details',{
+                credentials: 'include'
+             })
+            .then(res => res.json())
+            .then(data => {
+                this.setState({
+                    fname: data.firstName,
+                    lname: data.lastName,
+                    phone: data.phone,
+                    restName: data.restName,
+                    restZip: data.restZip
+                });
+            })
+            .catch(err => console.log(err));
+
+            fetch('http://localhost:3101/owner/profilePic',{
+                credentials: 'include'
+            })
+            .then(res => res.blob())
+            .then(resAsBlob => {
+                this.setState({
+                    imgURL: URL.createObjectURL(resAsBlob)
+                });
+            })
+        }
+    }
+
     //input change handler to update state variable with the text entered by the user
     handleChange(e) {
-        this.props.onChange(e.target);
+        this.setState({
+            [e.target.name] : e.target.value
+        })
     }
 
     editProfile = () => {
@@ -81,7 +119,7 @@ class OwnerProfile extends Component {
         var headers = new Headers();
         //prevent page from refresh
         e.preventDefault();
-        const data = this.props.ownerDetails;
+        const data = this.state;
         console.log(data)
         fetch('http://localhost:3101/owner/updateProfile', {
             method: "POST",
@@ -120,7 +158,8 @@ class OwnerProfile extends Component {
         let profileUpdate = null;
         
         if(this.state.isEditable){
-            imageEdit = (<div>
+            imageEdit = (
+            <div>
                 <form>
                     <div class="form-group user-image">
                         <input className = "upload-image" type="file" id="upload" onChange= {this.handleFileUpload}/>
@@ -129,14 +168,14 @@ class OwnerProfile extends Component {
                         </button>
                     </div>
                 </form>
-            </div>);
+            </div>
+            );
             
             profileUpdate = (
                 <div className = "btn-toolbar">
                     <button onClick = {this.updateProfile} className="btn btn-success">Update</button>
                     <button onClick = {this.cancelEdit} className="btn btn-danger">X Cancel</button>
                 </div>
-                
             );
         }else{
             profileEdit = (
@@ -160,39 +199,39 @@ class OwnerProfile extends Component {
                             <div class = "profile-image">
                                 <label>Image</label>
                                 <img className="rounded float-left img-thumbnail" id="pic" 
-                                src={this.props.ownerDetails.imgURL} alt="Responsive image"></img>
+                                src={this.state.imgURL} alt="Responsive image"></img>
                             </div>
                             {imageEdit}
                             <div className="form-group form-inline">
                                 <label >First Name</label>
                                 <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="fname" placeholder="First Name"
-                                value = {this.props.ownerDetails.fname}/>
+                                value = {this.state.fname}/>
                             
                             </div>
                             <div className="form-group form-inline">
                                 <label >Last Name</label>
                                 <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="lname" placeholder="Last Name"
-                                value = {this.props.ownerDetails.lname}/>
+                                value = {this.state.lname}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Phone</label>
                                 <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="number" className="form-control" name="phone" placeholder="Phone"
-                                value = {this.props.ownerDetails.phone}/>
+                                value = {this.state.phone}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Restaurant Name</label>
                                 <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="restName" placeholder="Restaurant Name"
-                                value = {this.props.ownerDetails.restName}/>
+                                value = {this.state.restName}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Restaurant Zip</label>
                                 <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="restZip" placeholder="Restaurant Zip"
-                                value = {this.props.ownerDetails.restZip}/>
+                                value = {this.state.restZip}/>
                             </div>
                                 {profileUpdate}   
                                 {profileEdit}                  

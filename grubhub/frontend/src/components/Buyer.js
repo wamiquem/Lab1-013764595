@@ -31,7 +31,7 @@ class Buyer extends React.Component{
             
             </div>
             <Switch>
-
+                {/* <Route path="/buyer"  exact component={BuyerLogin}/> */}
                 <Route path="/buyer/login" component={BuyerLogin}/>
                 <Route path="/buyer/home" component={BuyerHome}/>
                 <Route path="/buyer/signup" component={BuyerSignup}/>

@@ -1,7 +1,22 @@
 
-.form-heading { color:#fff; font-size:23px;}
-.panel h2{ color:#444444; font-size:18px; margin:0 0 8px 0;}
-.panel p { color:#777777; font-size:14px; margin-bottom:30px; line-height:24px;}
+.form-heading { 
+  color:#fff; 
+  font-size:23px;
+}
+
+.panel h2{ 
+  color:#444444;
+  font-size:18px;
+  margin:0 0 8px 0;
+}
+
+.panel p {
+  color:#777777;
+  font-size:14px;
+  margin-bottom:30px;
+  line-height:24px;
+}
+
 .login-form .form-control {
   background: #f7f7f7 none repeat scroll 0 0;
   border: 1px solid #d4d4d4;
@@ -11,6 +26,56 @@
   line-height: 35px;
   align-content: center;
 }
+
+.login-form  .btn.btn-primary {
+  background: #f10c0c none repeat scroll 0 0;
+  border-color: #f10c0c;
+  color: #ffffff;
+  font-size: 14px;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.login-form .form-group {
+  margin-bottom:10px;
+}
+
+.login-form{ 
+  text-align:center;
+}
+
+.signup-form .form-control {
+  background: #f7f7f7 none repeat scroll 0 0;
+  border: 1px solid #d4d4d4;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 35px;
+  line-height: 35px;
+  align-content: center;
+}
+
+.signup-form  .btn.btn-primary {
+  background: #0c5cf1 none repeat scroll 0 0;
+  border-color: #0c5cf1;
+  color: #ffffff;
+  font-size: 14px;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.signup-form .form-group {
+  margin-bottom:10px;
+}
+.signup-form{ 
+  text-align:center;
+}
+
 .main-div {
   background: #ffffff none repeat scroll 0 0;
   border-radius: 2px;
@@ -57,47 +122,10 @@
   padding-bottom: 10px;
 }
 
-.login-form .form-group {
-  margin-bottom:10px;
-}
-.login-form{ 
-  text-align:center;
-}
-
-.signup-form .form-group {
-  margin-bottom:10px;
-}
-.signup-form{ 
-  text-align:center;
-}
-
 .forgot a {
   color: #777777;
   font-size: 14px;
   text-decoration: underline;
-}
-.login-form  .btn.btn-primary {
-  background: #f10c0c none repeat scroll 0 0;
-  border-color: #f10c0c;
-  color: #ffffff;
-  font-size: 14px;
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  padding: 0;
-  margin-bottom: 10px;
-}
-
-.signup-form  .btn.btn-primary {
-  background: #0c5cf1 none repeat scroll 0 0;
-  border-color: #0c5cf1;
-  color: #ffffff;
-  font-size: 14px;
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  padding: 0;
-  margin-bottom: 10px;
 }
 
 .forgot {
@@ -129,7 +157,7 @@
   -webkit-box-shadow: 0 8px 6px -6px #999;
   -moz-box-shadow: 0 8px 6px -6px #999;
   box-shadow: 0 8px 6px -6px #999;
-
+  margin-bottom: 0;
   /* the rest of your styling */
 }
 
@@ -143,6 +171,82 @@
   width: 100%;
 }
 
-[hidden] {
-  display: none !important;
+.rest-image .btn.btn-primary{
+  width: 80px;
+    height: 30px;
+    float: left;
+    line-height: 10px;
+}
+
+.restaurant-image {
+  height: 200px; 
+  width: 200px;
+  padding-left: 10px;
+  margin-block-end: 35px;
+
+}
+
+.restaurant-image .img-thumbnail{
+  height: 100%; 
+  width: 100%;
+}
+
+.rest-image .upload-image{
+  padding-bottom: 10px;
+}
+
+.right-side-area {
+  width: 85%;
+  float: right;
+}
+
+.add-section-form .main-div {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  max-width: 90%;
+  padding: 20px 0px 0px 0px;
+  align-content: center;
+  margin: 0px;
+}
+
+.add-section-form .panel {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  padding: 20px;
+  align-content: center;
+  border: 1px solid #15141436;
+}
+
+.add-section-form .form-control {
+  margin: 0 5px;
+}
+
+.sections-list .main-div {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  max-width: 90%;
+  padding: 20px 0px 0px 0px;
+  align-content: center;
+  margin: 0px;
+}
+
+.sections-list .panel {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  padding: 20px;
+  align-content: center;
+  border: 1px solid #15141436;
+}
+
+.sections-list .form-control {
+  margin: 0 5px;
+}
+
+.sections-list .btn-primary,.btn-success,.btn-danger{
+  margin: 0 5px;
+}
+
+.section-bar{
+  padding-bottom: 10px;
+  display: flex;
 }

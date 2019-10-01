@@ -135,7 +135,7 @@ class BuyerProfile extends Component {
             profileUpdate = (
                 <div className = "btn-toolbar">
                     <button onClick = {this.updateProfile} className="btn btn-success">Update</button>
-                    <button onClick = {this.cancelEdit} className="btn btn-danger">X Cancel</button>
+                    <button onClick = {this.cancelEdit} className="btn btn-danger">Cancel</button>
                 </div>
                 
             );

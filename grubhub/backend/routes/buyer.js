@@ -36,7 +36,7 @@ router.post('/login',function(req,res){
         if(row){
             encrypt.confirmPassword(password,row.password, result => {
                 if (result){
-                    res.cookie('cookie',{id: row.buyer_id},{maxAge: 900000, httpOnly: false, path : '/'});
+                    res.cookie('cookie',{id: row.id},{maxAge: 900000, httpOnly: false, path : '/'});
                     req.session.user = email;
                     res.status(200).json({success: true, message: "Buyer Login successful"});
                 }else{
@@ -183,7 +183,7 @@ router.get('/details',function(req,res){
  
     queries.getBuyerDetailsById(req.cookies.cookie.id, row => {
         res.status(200).json({success: true, firstName: row.fname, lastName: row.lname, phone: row.phone,
-            street: row.street_address, unit: row.unit_no, city: row.city, state: row.state, zip: row.zip_code});
+            street: row.street, unit: row.unit_no, city: row.city, state: row.state, zip: row.zip_code});
     }, err => {
         res.status(200).json({success: false, message: `Something wrong when reading buyer first name. ${err}`});
     })

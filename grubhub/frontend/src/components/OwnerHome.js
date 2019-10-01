@@ -44,8 +44,6 @@ class OwnerHome extends Component {
 
                 <Navbar firstName = {this.state.firstName} />
             </div>
-            
-        
         )
     }
 }
