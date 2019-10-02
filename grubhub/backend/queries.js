@@ -409,12 +409,39 @@ queries.updateSection = (section, successcb, failurecb) => {
             failurecb(err);
             return;
         }
-        console.log("No err");
         successcb(result);
     });
 }
 
-queries.deleteMenu = (sectionId, successcb, failurecb) => {
+queries.addMenu = (menu, successcb, failurecb) => {
+    let sql = `INSERT INTO menus 
+    (section_id, rest_id, name, description, price, image) 
+    VALUES ?`;
+    let values = [menu.sectionId, menu.restId, menu.name, menu.description, menu.price, 'menu_default_image.png'];
+    con.query(sql, [[values]], function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
+queries.updateMenuImage = (menu, successcb, failurecb) => {
+    let sql = `UPDATE menus 
+    SET image = ?
+    WHERE id = ?`;
+    let values = [menu.image, menu.id];
+    con.query(sql, values, function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
+queries.deleteMenuBySectionId = (sectionId, successcb, failurecb) => {
     let sql = 'DELETE FROM menus WHERE section_id = ?';
     
     con.query(sql, [sectionId], function (err, result){
@@ -426,5 +453,56 @@ queries.deleteMenu = (sectionId, successcb, failurecb) => {
     });
 }
 
+queries.deleteMenuByMenuId = (menuId, successcb, failurecb) => {
+    let sql = 'DELETE FROM menus WHERE id = ?';
+    
+    con.query(sql, [menuId], function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
+queries.getMenuByRestaurantId = (restId, successcb, failurecb) => {
+    let sql = `SELECT id, section_id, rest_id, name, description, price 
+    FROM menus WHERE rest_id = ?`;
+    
+    con.query(sql, [restId], function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
+queries.getMenuImageNameById = (id, successcb, failurecb) => {
+    let sql = 'SELECT image FROM menus WHERE id = ?';
+
+    con.query(sql, [id], function (err, row){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(row[0]);
+    });
+}
+
+queries.updateMenu = (menu, successcb, failurecb) => {
+    let sql = `UPDATE menus 
+    SET section_id = ?, name = ?, description = ?, price = ?
+    WHERE id = ?`;
+    let values = [menu.sectionId, menu.name, menu.description, menu.price, menu.id];
+    
+    con.query(sql, values, function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
 
 module.exports = queries;

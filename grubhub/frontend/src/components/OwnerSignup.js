@@ -80,9 +80,6 @@ class OwnerSignup extends Component {
                     this.setState({
                         success : true
                     });
-                    // localStorage.setItem("ownerId",JSON.parse(data).id);
-                    // localStorage.setItem("restaurantName", this.state.restName);
-                    // localStorage.setItem("restaurantZip", this.state.restZip);
                 });
             }else{
                 res.text().then(data => {

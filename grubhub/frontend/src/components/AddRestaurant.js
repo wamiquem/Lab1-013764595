@@ -96,8 +96,6 @@ class AddRestaurant extends Component {
         .catch(err => console.log(err));
     }
     render(){
-        console.log("*&^*&^& name= ", this.state.name);
-        console.log("*&^*&^& phone= ", this.state.phone);
         //if Cookie is set render Owner Home Page
         let redirectVar = null;
         console.log("localStorage.getItem('restaurantName')= ", localStorage.getItem('restaurantName'))

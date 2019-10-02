@@ -6,70 +6,77 @@ import MenusList from './MenusList';
 class Menus extends Component {
     constructor(props){
         super(props);
+        this.getSectionsFromMenuFormComponent = this.getSectionsFromMenuFormComponent.bind(this);
         this.handleEditChange = this.handleEditChange.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.state = {
+            menus: [],
             sections: []
         }
     }
 
-    handleDelete = sectionId => {
+    handleDelete = menuId => {
         this.setState( state => {
-            const sections = state.sections.filter(section => section.id != sectionId);
+            const menus = state.menus.filter(menu => menu.id != menuId);
             return {
-                sections
+                menus
             };
         });
     };
 
-    handleAdd = section =>{
+    handleAdd = menu =>{
         this.setState(state => ({
-            sections: [...state.sections, section]
+            menus: [...state.menus, menu]
           }))
     }
 
-    handleEditChange(id, name) {
+    handleEditChange(id, name, value) {
         this.setState(state => {
-            const sections = state.sections.map(section => {
-                // Find a section with the matching id
-                if(section.id == id){
+            const menus = state.menus.map(menu => {
+                // Find a menu with the matching id
+                if(menu.id == id){
                     //Return a new object
                     return{
-                        ...section, //copy the existing section
-                        name: name //replace the name with new name
+                        ...menu, //copy the existing menu
+                        [name]: value //replace the name with new name
                     }
                 }
-                // Leave every other section unchanged
-                return section;
+                // Leave every other menu unchanged
+                return menu;
             });
             return {
-                sections
+                menus
             };
+        });
+    }
+
+    getSectionsFromMenuFormComponent = sections => {
+        this.setState({
+            sections : this.state.sections.concat(sections)
         });
     }
     
     componentDidMount(){
-        if(cookie.load('cookie')){
-            fetch('http://localhost:3101/restaurant/sections',{
+        // if(cookie.load('cookie')){
+            fetch('http://localhost:3101/restaurant/menus',{
                 credentials: 'include'
              })
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                    sections : this.state.sections.concat(data.sections)
+                    menus : this.state.menus.concat(data.menus)
                 });
             })
             .catch(err => console.log(err));
-        }
-    }
+    }    
 
     render(){
-        console.log("Section state = ", this.state)
+        console.log("***********9999= ",this.state);
         return(
             <div>
-                <MenuAddForm onAdd = {this.handleAdd}/>
-                <MenusList sections = {this.state.sections}
+                <MenuAddForm onAdd = {this.handleAdd} onSectionsLoad = {this.getSectionsFromMenuFormComponent}/>
+                <MenusList menus = {this.state.menus} sections = {this.state.sections}
                 onDelete = {this.handleDelete}
                 onEditChange = {this.handleEditChange}/>
             </div>

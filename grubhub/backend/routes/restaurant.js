@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const queries = require('../queries');
-const encrypt = require('../encrypt');
+const path = require('path');
 
 router.post('/create',function(req,res){
     console.log("Inside Create Restaurant Post Request");
@@ -37,11 +37,11 @@ router.post('/update',function(req,res){
 router.post('/addSection',function(req,res){
     console.log("Inside Restaurant Add Section Post Request");
     console.log("Req Body : ",req.body);
-    const restaurant = req.body;
+    const section = req.body;
 
     queries.getRestaurantIdByOwnerId(req.cookies.cookie.id, result=> {
-        queries.addSection({restId: result.id, name: restaurant.name}, row => {
-            console.log("Number of records updated: " + row.affectedRows);
+        queries.addSection({restId: result.id, name: section.name}, row => {
+            console.log("Number of records added: " + row.affectedRows);
             res.status(200).send({message:'Section added', id: row.insertId, restId: result.id});
         }, err=>{
             if(err.code === 'ER_DUP_ENTRY'){
@@ -75,7 +75,7 @@ router.post('/deleteSection',function(req,res){
     console.log("Req Body : ",req.body);
     const section = req.body;
 
-    queries.deleteMenu(section.id, result => {
+    queries.deleteMenuBySectionId(section.id, result => {
         console.log("Number of menus deleted: " + result.affectedRows);
         queries.deleteSection(section.id, row => {
             console.log("Number of section deleted: " + row.affectedRows);
@@ -97,7 +97,91 @@ router.post('/updateSection',function(req,res){
         console.log("Number of section updates: " + result.affectedRows);
         res.status(200).send({message:'Section updated'});
     }, err => {
-        res.status(500).send({ message: `Something failed when updating section in the table. ${err.message}`});
+        if(err.code === 'ER_DUP_ENTRY'){
+            res.status(401).send({ message: 'A section with this name already exists.' });
+        } else {
+            res.status(500).send({ message: `Something failed when updating section in the table. ${err.message}`});
+        }
+    })
+});
+
+router.post('/addMenu',function(req,res){
+    console.log("Inside Restaurant Add Section Post Request");
+    console.log("Req Body : ",req.body);
+    const menu = req.body;
+
+    queries.getRestaurantIdByOwnerId(req.cookies.cookie.id, result=> {
+        queries.addMenu({restId: result.id, sectionId: menu.sectionId, name: menu.name, 
+        description: menu.description, price: menu.price}, row => {
+            console.log("Number of records added: " + row.affectedRows);
+            res.status(200).send({message:'Menu added', menuId: row.insertId, restId: result.id});
+        }, err=>{
+            if(err.code === 'ER_DUP_ENTRY'){
+                res.status(401).send({ success: false, message: 'Menu with the same name already exists' });
+            }else{
+                res.status(500).send({ message: `Something failed when adding menu in the table. ${err.message}`});
+            }
+        });
+    }, err => {
+        res.status(500).send({ message: `Something failed when getting restaurant Id. ${err.message}`});
+    });
+});
+
+router.get('/menus',function(req,res){
+    console.log("Inside Restaurant Menus Get Request");
+    console.log("Req Body : ",req.body);
+
+    queries.getRestaurantIdByOwnerId(req.cookies.cookie.id, result=> {
+        queries.getMenuByRestaurantId(result.id, row => {
+            res.status(200).json({success: true, menus: row});
+        }, err=>{
+            res.status(500).send({ message: `Something failed when getting sections from the table. ${err.message}`});
+        });
+    }, err => {
+        res.status(500).send({ message: `Something failed when getting restaurant Id. ${err.message}`});
+    });
+});
+
+router.get('/menuImage/:id',function(req,res){
+    console.log("Inside Restaurant Menus pic Get Request");
+    console.log("Req Body : ",req.body);
+
+    let id = req.params.id;
+
+    queries.getMenuImageNameById(id, row => {
+        res.sendFile(path.join(__dirname, `../uploads/${row.image}`));
+    }, err => {
+        res.status(500).json({success: false, message: `Something wrong when reading menu image from the table. ${err}`});
+    })
+});
+
+router.post('/deleteMenu',function(req,res){
+    console.log("Inside Restaurant Delete Menu Post Request");
+    console.log("Req Body : ",req.body);
+    const menu = req.body;
+
+    queries.deleteMenuByMenuId(menu.id, result => {
+        console.log("Number of menus deleted: " + result.affectedRows);
+        res.status(200).send({message:'Menu deleted'});
+    }, err => {
+        res.status(500).send({ message: `Something failed when deleting menu from the table. ${err.message}`});
+    });
+});
+
+router.post('/updateMenu',function(req,res){
+    console.log("Inside Restaurant Update Section Post Request");
+    console.log("Req Body : ",req.body);
+    const menu = req.body;
+
+    queries.updateMenu(menu, result => {
+        console.log("Number of section updates: " + result.affectedRows);
+        res.status(200).send({message:'Menu updated'});
+    }, err => {
+        if(err.code === 'ER_DUP_ENTRY'){
+            res.status(401).send({ message: 'A menu with this name already exists.' });
+        } else {
+            res.status(500).send({ message: `Something failed when updating menu in the table. ${err.message}`});
+        }
     })
 });
 

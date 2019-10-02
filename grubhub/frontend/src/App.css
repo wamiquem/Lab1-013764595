@@ -173,9 +173,9 @@
 
 .rest-image .btn.btn-primary{
   width: 80px;
-    height: 30px;
-    float: left;
-    line-height: 10px;
+  height: 30px;
+  float: left;
+  line-height: 10px;
 }
 
 .restaurant-image {
@@ -247,6 +247,93 @@
 }
 
 .section-bar{
+  padding-bottom: 10px;
+  display: flex;
+}
+
+.add-menu-form .main-div {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  max-width: 90%;
+  padding: 20px 0px 0px 0px;
+  align-content: center;
+  margin: 0px;
+}
+
+.add-menu-form .panel {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  padding: 20px;
+  align-content: center;
+  border: 1px solid #15141436;
+}
+
+.add-menu-form .form-control {
+  margin: 0 5px;
+}
+
+.menu-image {
+  height: 100px; 
+  width: 100px;
+  padding-left: 10px;
+  margin-block-end: 35px;
+}
+
+.menu-image .img-thumbnail{
+  height: 100%; 
+  width: 100%;
+}
+
+.add-menu-form .name-input{
+  width: 300px;
+}
+
+.add-menu-form .price-input{
+  width: 100px;
+}
+
+.add-menu-form .desc-textarea{
+  width: 300px;
+}
+
+.menus-list .main-div {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  max-width: 90%;
+  padding: 20px 0px 0px 0px;
+  align-content: center;
+  margin: 0px;
+}
+
+.menus-list .panel {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  padding: 20px;
+  align-content: center;
+  border: 1px solid #15141436;
+}
+
+.menus-list .form-control {
+  margin: 0 5px;
+}
+
+.menus-list .name-input{
+  width: 300px;
+}
+
+.menus-list .price-input{
+  width: 100px;
+}
+
+.menus-list .desc-textarea{
+  width: 300px;
+}
+
+.menus-list .btn-primary,.btn-success,.btn-danger{
+  margin: 0 5px;
+}
+
+.menu-card{
   padding-bottom: 10px;
   display: flex;
 }

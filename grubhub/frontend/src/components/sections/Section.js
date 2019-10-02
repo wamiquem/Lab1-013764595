@@ -16,7 +16,7 @@ class Section extends Component {
     }
 
     handleEditChange = e => {
-        this.props.onEditChange(this.props.section.id, e.target.value);
+        this.props.onEditChange(this.props.section.id, e.target);
     }
 
     editSection = () => {
@@ -126,15 +126,19 @@ class Section extends Component {
         }
 
         return(
-            <div className = "section-bar">
-                <input  onChange = {this.handleEditChange} 
-                value = {this.props.section.name} disabled={!this.state.isEditable}
-                type="text" className="form-control" name="name" placeholder="Name"/>
-                {sectionEdit}
-                {sectionUpdate}
-                {editCancel}
-                <button onClick = {this.deleteSection} disabled={this.state.isEditable}
-                className="btn btn-primary">Delete</button>
+            <div>
+                <h2 style= {{color:"red"}}>{this.state.message}</h2>
+                <div className = "section-bar">
+                    <input  onChange = {this.handleEditChange} 
+                    value = {this.props.section.name} disabled={!this.state.isEditable}
+                    type="text" className="form-control" name="name" placeholder="Name"/>
+                    {sectionEdit}
+                    {sectionUpdate}
+                    {editCancel}
+                    <button onClick = {this.deleteSection} disabled={this.state.isEditable}
+                    className="btn btn-primary">Delete</button>
+                </div>
+                <hr/>
             </div>
         )
     }

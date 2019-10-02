@@ -8,31 +8,31 @@ class MenusList extends Component {
         this.handleEditChange = this.handleEditChange.bind(this);
         }
         
-    handleDelete(sectionId){
-        this.props.onDelete(sectionId);
+    handleDelete(menuId){
+        this.props.onDelete(menuId);
     }
 
-    handleEditChange(sectionId, sectionName){
-        this.props.onEditChange(sectionId, sectionName);
+    handleEditChange(menuId, name, value){
+        this.props.onEditChange(menuId, name, value);
     }
 
     render(){
         return(
             <div>
                 <div className="container">
-                    <div className="sections-list">
+                    <div className="menus-list">
                         <div className="main-div">
                             <div className="panel">
-                                <h4>Sections</h4>
+                                <h4>Menus</h4>
                                 <hr/>
                                 {
-                                    this.props.sections.map(section => {
-                                        return <Menu section = {section}
+                                    this.props.menus.map(menu => {
+                                        return <Menu menu = {menu} sections = {this.props.sections}
                                         onDelete = {this.handleDelete}
                                         onEditChange = {this.handleEditChange}/>
                                     })
+
                                 }
-                                
                             </div>
                         </div>
                     </div>

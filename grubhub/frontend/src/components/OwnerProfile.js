@@ -84,11 +84,6 @@ class OwnerProfile extends Component {
         e.preventDefault();
         const formData = new FormData();
         formData.append('image', document.querySelector('input[type="file"]').files[0]);
-        const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        };
         
         fetch('http://localhost:3101/upload/owner-profile-image', {
             method: 'POST',

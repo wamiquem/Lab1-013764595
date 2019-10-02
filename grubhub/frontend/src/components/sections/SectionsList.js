@@ -12,8 +12,8 @@ class SectionsList extends Component {
         this.props.onDelete(sectionId);
     }
 
-    handleEditChange(sectionId, sectionName){
-        this.props.onEditChange(sectionId, sectionName);
+    handleEditChange(sectionId, e){
+        this.props.onEditChange(sectionId, e);
     }
 
     render(){

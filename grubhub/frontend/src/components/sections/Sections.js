@@ -30,7 +30,7 @@ class Sections extends Component {
           }))
     }
 
-    handleEditChange(id, name) {
+    handleEditChange(id, e) {
         this.setState(state => {
             const sections = state.sections.map(section => {
                 // Find a section with the matching id
@@ -38,7 +38,7 @@ class Sections extends Component {
                     //Return a new object
                     return{
                         ...section, //copy the existing section
-                        name: name //replace the name with new name
+                        [e.name]: e.value  //replace the name with new name
                     }
                 }
                 // Leave every other section unchanged
