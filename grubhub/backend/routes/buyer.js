@@ -38,7 +38,7 @@ router.post('/login',function(req,res){
                 if (result){
                     res.cookie('cookie',{id: row.id},{maxAge: 900000, httpOnly: false, path : '/'});
                     req.session.user = email;
-                    res.status(200).json({success: true, message: "Buyer Login successful"});
+                    res.status(200).json({success: true, message: "Buyer Login successful", id: row.id});
                 }else{
                     res.status(401).json({success: false, message: "Incorrect Password"});
                 }

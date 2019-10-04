@@ -23,6 +23,7 @@ class MenuAddForm extends Component {
     }
 
     componentDidMount(){
+        console.log("inside component mount");
         if(cookie.load('cookie')){
             fetch('http://localhost:3101/restaurant/sections',{
                 credentials: 'include'

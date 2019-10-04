@@ -505,4 +505,50 @@ queries.updateMenu = (menu, successcb, failurecb) => {
     });
 }
 
+queries.getAllOrders = (owner_id, successcb, failurecb) => {
+    let sql = `SELECT o.order_id, b.fname, b.lname, b.unit_no, b.street, b.city, b.zip_code, o.status, o.price 
+    FROM orders o, buyers b 
+    WHERE o.buyer_id = b.id
+    AND o.owner_id = ?`;
+    let values = [owner_id];
+    
+    con.query(sql, values, function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
+queries.getMenuItemsByOrderId = (order_id, successcb, failurecb) => {
+    let sql = `SELECT  m.name, m.price, o.quantity from order_details o, menus m
+    where o.menu_id = m.id
+    AND o.order_id = ?`;
+    
+    con.query(sql, [order_id], function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
+queries.updateOrderStatus = (order, successcb, failurecb) => {
+    let sql = `UPDATE orders 
+    SET status = ?
+    WHERE order_id = ?`;
+    let values = [order.status, order.id];
+    console.log("****=",values);
+    
+    con.query(sql, values, function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
 module.exports = queries;

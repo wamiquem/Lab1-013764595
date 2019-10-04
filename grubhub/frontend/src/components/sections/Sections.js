@@ -52,7 +52,7 @@ class Sections extends Component {
     
     componentDidMount(){
         if(cookie.load('cookie')){
-            fetch('http://localhost:3101/restaurant/sections',{
+            fetch('http://localhost:3101/restaurant/sections/',{
                 credentials: 'include'
              })
             .then(res => res.json())

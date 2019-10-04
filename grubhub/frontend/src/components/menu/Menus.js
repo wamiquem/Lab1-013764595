@@ -72,7 +72,6 @@ class Menus extends Component {
     }    
 
     render(){
-        console.log("***********9999= ",this.state);
         return(
             <div>
                 <MenuAddForm onAdd = {this.handleAdd} onSectionsLoad = {this.getSectionsFromMenuFormComponent}/>

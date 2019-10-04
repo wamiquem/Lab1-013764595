@@ -57,18 +57,43 @@ router.post('/addSection',function(req,res){
 
 router.get('/sections',function(req,res){
     console.log("Inside Restaurant Sections Get Request");
-    console.log("Req Body : ",req.body);
+    console.log("Req Query : ",req.query);
 
-    queries.getRestaurantIdByOwnerId(req.cookies.cookie.id, result=> {
-        queries.getSectionByRestaurantId(result.id, row => {
+    if(req.query.restId){
+        queries.getSectionByRestaurantId(req.query.restId, row => {
             res.status(200).json({success: true, sections: row});
         }, err=>{
             res.status(500).send({ message: `Something failed when getting sections from the table. ${err.message}`});
         });
-    }, err => {
-        res.status(500).send({ message: `Something failed when getting restaurant Id. ${err.message}`});
-    });
+    } else {
+        queries.getRestaurantIdByOwnerId(req.cookies.cookie.id, result=> {
+            queries.getSectionByRestaurantId(result.id, row => {
+                res.status(200).json({success: true, sections: row});
+            }, err=>{
+                res.status(500).send({ message: `Something failed when getting sections from the table. ${err.message}`});
+            });
+        }, err => {
+            res.status(500).send({ message: `Something failed when getting restaurant Id. ${err.message}`});
+        });
+    }
+    
 });
+
+// router.get('/sections/:restId',function(req,res){
+//     console.log("Inside Restaurant Sections Get Request");
+//     console.log("Req Params : ",req.params);
+
+//     let restId = req.params.restId;
+//     queries.getRestaurantIdByOwnerId(restId, result=> {
+//         queries.getSectionByRestaurantId(result.id, row => {
+//             res.status(200).json({success: true, sections: row});
+//         }, err=>{
+//             res.status(500).send({ message: `Something failed when getting sections from the table. ${err.message}`});
+//         });
+//     }, err => {
+//         res.status(500).send({ message: `Something failed when getting restaurant Id. ${err.message}`});
+//     });
+// });
 
 router.post('/deleteSection',function(req,res){
     console.log("Inside Restaurant Delete Section Post Request");
@@ -135,10 +160,24 @@ router.get('/menus',function(req,res){
         queries.getMenuByRestaurantId(result.id, row => {
             res.status(200).json({success: true, menus: row});
         }, err=>{
-            res.status(500).send({ message: `Something failed when getting sections from the table. ${err.message}`});
+            res.status(500).send({ message: `Something failed when getting menus from the table. ${err.message}`});
         });
     }, err => {
         res.status(500).send({ message: `Something failed when getting restaurant Id. ${err.message}`});
+    });
+});
+
+router.get('/menuItems/:restId',function(req,res){
+    console.log("Inside Restaurant Menu Items Get Request");
+    console.log("Req Params : ",req.params);
+
+    let restId = req.params.restId;
+
+    queries.getMenuByRestaurantId(restId, row => {
+        console.log(row);
+        res.status(200).json({success: true, items: row});
+    }, err=>{
+        res.status(500).send({ message: `Something failed when getting menu items from the table. ${err.message}`});
     });
 });
 
@@ -182,6 +221,49 @@ router.post('/updateMenu',function(req,res){
         } else {
             res.status(500).send({ message: `Something failed when updating menu in the table. ${err.message}`});
         }
+    })
+});
+
+router.get('/allOrders',function(req,res){
+    console.log("Inside Restaurant All Orders Get Request");
+    console.log("Req Body : ",req.body);
+    
+    queries.getAllOrders(req.cookies.cookie.id, row => {
+        const orders = row.map(order => {
+            return {
+                orderId: order.order_id, buyerName: `${order.fname} ${order.lname}`, 
+                buyerAddress: `${order.unit_no}, ${order.street}, ${order.city}, ${order.zip_code}`,
+                orderPrice: order.price, orderStatus: order.status
+            }
+        });
+        res.status(200).json({success: true, orders: orders});
+    }, err=> {
+        res.status(500).send({ message: `Something failed when getting order details from the table. ${err.message}`});
+    });
+});
+
+router.get('/orderedItems/:orderId',function(req,res){
+    console.log("Inside Restaurant Ordered Items Get Request");
+    console.log("Req Body : ",req.body);
+    
+    let orderId = req.params.orderId;
+    queries.getMenuItemsByOrderId(orderId, row => {
+        res.status(200).json({success: true, menuItems: row});
+    }, err=> {
+        res.status(500).send({ message: `Something failed when getting menu items from the table. ${err.message}`});
+    });
+});
+
+router.post('/updateOrder',function(req,res){
+    console.log("Inside Restaurant Update Order Post Request");
+    console.log("Req Body : ",req.body);
+    const order = req.body;
+
+    queries.updateOrderStatus(order, result => {
+        console.log("Number of order updated: " + result.affectedRows);
+        res.status(200).send({message:'Order updated'});
+    }, err => {
+        res.status(500).send({ message: `Something failed when updating order status in the table. ${err.message}`});
     })
 });
 

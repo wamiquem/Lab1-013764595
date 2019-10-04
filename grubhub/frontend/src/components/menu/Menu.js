@@ -8,7 +8,8 @@ class Menu extends Component {
             isEditable: false,
             isNewImage: false,
             imgURL: "",
-            imageFile: ""
+            imageFile: "",
+            message: ""
         }
         //Bind the handlers to this class
         this.handleEditChange = this.handleEditChange.bind(this);
@@ -207,7 +208,7 @@ class Menu extends Component {
             <div className = "menu-card" >
                 <div class = "menu-image">
                     <label>Image</label>
-                    <img className="rounded float-left img-thumbnail" id={`menu-pic-${this.props.menu.id}`} 
+                    <img className="rounded float-left img-thumbnail" id={`menu-pic-${this.props.menu.id}`}
                     src = {this.state.imgURL} alt="Responsive image"></img>
                     {imageEdit}
                 </div>

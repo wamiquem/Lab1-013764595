@@ -65,7 +65,11 @@ class OwnerLogin extends Component {
                 this.setState({
                     authFlag : true
                 });
-                res.text().then(data => console.log(data));
+                localStorage.setItem('userType','owner');
+                res.text().then(data => {
+                    console.log(data);
+                    localStorage.setItem('id',JSON.parse(data).id);
+                });
             }else{
                 res.text().then(data => {
                     console.log(data);

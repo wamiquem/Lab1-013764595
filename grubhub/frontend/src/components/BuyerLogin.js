@@ -66,7 +66,10 @@ class BuyerLogin extends Component {
                     authFlag : true
                 });
                 localStorage.setItem('userType','buyer');
-                res.text().then(data => console.log(data));
+                res.text().then(data => {
+                    console.log(data);
+                    localStorage.setItem('id',JSON.parse(data).id);
+                });
             }else{
                 res.text().then(data => {
                     console.log(data);
