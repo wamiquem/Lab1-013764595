@@ -250,20 +250,6 @@ class Menu extends Component {
                 className="btn btn-primary">Delete</button>
             <hr/>
             </div>
-
-
-
-
-            // <div className = "section-bar">
-            //     <input  onChange = {this.handleEditChange} 
-            //     value = {this.props.section.name} disabled={!this.state.isEditable}
-            //     type="text" className="form-control" name="name" placeholder="Name"/>
-            //     {sectionEdit}
-            //     {sectionUpdate}
-            //     {editCancel}
-            //     <button onClick = {this.deleteSection} disabled={this.state.isEditable}
-            //     className="btn btn-primary">Delete</button>
-            // </div>
         )
     }
 }

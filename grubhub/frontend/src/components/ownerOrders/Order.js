@@ -88,8 +88,8 @@ class Order extends Component {
                     <label style = {{paddingLeft:'25px'}}>Price:</label>
                     <h7 style = {{paddingLeft:'5px'}}>{item.price}</h7>
                 </div>
-            )
-        })
+            );
+        });
         return(
             <div>
                 <h2 style= {{color:"red"}}>{this.state.message}</h2>

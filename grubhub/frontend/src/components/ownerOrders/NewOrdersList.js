@@ -36,8 +36,6 @@ class NewOrdersList extends Component {
                     </div>
                 </div>
             </div>
-            
-        
         )
     }
 }

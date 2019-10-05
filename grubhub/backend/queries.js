@@ -49,6 +49,18 @@ queries.getBuyerFirstNameById = (id, successcb, failurecb) => {
     });
 }
 
+queries.getBuyerFirstAddressById = (id, successcb, failurecb) => {
+    let sql = 'SELECT phone, street, unit_no, city, state, zip_code FROM buyers WHERE id = ?';
+
+    con.query(sql, [id], function (err, row){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(row[0]);
+    });
+}
+
 queries.getBuyerImageNameById = (id, successcb, failurecb) => {
     let sql = 'SELECT image FROM buyers WHERE id = ?';
 
@@ -113,11 +125,11 @@ queries.updateBuyerPassword = (buyer, successcb, failurecb) => {
     });
 }
 
-queries.updateBuyerAddress = (buyer, successcb, failurecb) => {
+queries.updateBuyerAddress = (id, buyer, successcb, failurecb) => {
     let sql = `UPDATE buyers 
     SET phone = ?, street = ?, unit_no = ?, city = ?, state = ?, zip_code = ?
     WHERE id = ?`;
-    let values = [buyer.phone, buyer.street, buyer.unit, buyer.city, buyer.state, buyer.zip, buyer.id];
+    let values = [buyer.phone, buyer.street, buyer.unit, buyer.city, buyer.state, buyer.zip, id];
     
     con.query(sql, values, function (err, result){
         if (err){
@@ -359,6 +371,18 @@ queries.getRestaurantIdByOwnerId = (ownerId, successcb, failurecb) => {
     });
 }
 
+queries.getOwnerIdByRestaurantId = (restId, successcb, failurecb) => {
+    let sql = 'SELECT owner_id FROM restaurants WHERE id = ?';
+
+    con.query(sql, [restId], function (err, row){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(row[0]);
+    });
+}
+
 queries.addSection = (section, successcb, failurecb) => {
     let sql = `INSERT INTO sections 
     (rest_id, name) 
@@ -497,6 +521,45 @@ queries.updateMenu = (menu, successcb, failurecb) => {
     let values = [menu.sectionId, menu.name, menu.description, menu.price, menu.id];
     
     con.query(sql, values, function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
+queries.createOrder = (order, successcb, failurecb) => {
+    let sql = `INSERT INTO orders 
+    (buyer_id, buyer_address, restaurant_id, owner_id, status, price) 
+    VALUES ?`;
+    let values = [order.buyerId, order.buyerAddress, order.restId, order.ownerId,'New', order.price];
+    con.query(sql, [[values]], function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
+queries.createOrderDetails = (orderId, items, successcb, failurecb) => {
+    // const items = [
+            //     {name: 'alpha', description: 'describes alpha', value: 1},
+            //     ...
+            // ];
+            
+            // db.query(
+            //     'INSERT INTO my_table (name, description, value) VALUES ?',
+            //     [items.map(item => [item.name, item.description, item.value])],
+            //     (error, results) => {...}
+            // );
+    
+    let sql = `INSERT INTO order_details
+    (order_id, menu_id, quantity, price) 
+    VALUES ?`;
+    let values = items.map(item => [orderId, item.id, item.quantity, item.price]);
+    con.query(sql, [values], function (err, result){
         if (err){
             failurecb(err);
             return;

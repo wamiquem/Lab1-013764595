@@ -13,18 +13,20 @@ class Navbar extends Component {
     //handle logout to destroy the cookie
     handleLogout = () => {
         cookie.remove('cookie', { path: '/' })
-        localStorage.removeItem('userType');
-        localStorage.removeItem('id');
+        // localStorage.removeItem('userType');
+        // localStorage.removeItem('id');
+        localStorage.clear();
     }
 
     render(){
-        //if Cookie is set render Logout Button
         let navLogin = null;
         let navAccount = null;
         let navRestaurant = null;
+        let navCart = null;
         if(cookie.load('cookie')){
             if(localStorage.getItem('userType') === 'buyer'){
                 navAccount = <li><Link to="/buyer/account">Account</Link></li>;
+                navCart = <li><Link to="/buyer/cart">Cart</Link></li>;
             }else{
                 navAccount = <li><Link to="/owner/account/profile">Account</Link></li>;
                 navRestaurant = <li><Link to="/owner/restaurant/profile">Restaurant</Link></li>;
@@ -32,11 +34,8 @@ class Navbar extends Component {
             }
             console.log("Able to read cookie");
             navLogin = (
-                // <ul class="nav navbar-nav navbar-right">
-                //         <li><Link to="/login"><span class="glyphicon glyphicon-log-in"></span> Login</Link></li>
-                // </ul>
-
                 <ul className="nav navbar-nav navbar-right">
+                    {navCart}
                     <li className="dropdown">
                         <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi,{this.props.firstName}!!! <span className="caret"></span></a>
                         <ul className="dropdown-menu">
@@ -52,6 +51,7 @@ class Navbar extends Component {
                         </ul>
                     </li>
                 </ul>
+                // </div>
                 
             );
         }
@@ -61,7 +61,6 @@ class Navbar extends Component {
             <nav className="navbar">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            {/* <a class="navbar-brand" href="#">Book Store App</a> */}
                             <Link to="/" className="navbar-brand" style={{fontFamily: "Impact",color:"red", fontSize:'25px'} }>GRUBHUB</Link>
                         </div>
                         {navLogin}

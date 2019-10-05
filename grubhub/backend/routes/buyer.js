@@ -146,11 +146,11 @@ router.post('/updateAddress',function(req,res){
     console.log("Inside Buyer Update Password Post Request");
     console.log("Req Body : ",req.body);
 
-    queries.updateBuyerAddress(req.body, sqlresult => {
+    queries.updateBuyerAddress(req.cookies.cookie.id, req.body, sqlresult => {
         console.log("Number of records updated: " + sqlresult.affectedRows);
-        res.status(200).send({message:'Buyer address updated succesfully.'});    
+        res.status(200).send({message:'Buyer address and phone updated succesfully.'});    
     }, err => {
-        res.status(500).json(`Something wrong when updating buyer address. ${err}`);
+        res.status(500).send({message:`Something wrong when updating buyer address. ${err}`}); 
     });
 });
 
@@ -177,6 +177,17 @@ router.get('/firstName',function(req,res){
     })
 });
 
+router.get('/address',function(req,res){
+    console.log("Inside buyer Address Get Request");
+    console.log("Req Cookie : ",req.body);
+ 
+    queries.getBuyerFirstAddressById(req.cookies.cookie.id, row => {
+        res.status(200).json({success: true, buyerAddress: row});
+    }, err => {
+        res.status(500).json({success: false, message: `Something wrong when reading buyer first name. ${err}`});
+    })
+});
+
 router.get('/details',function(req,res){
     console.log("Inside buyer Details Get Request");
     console.log("Req Cookie : ",req.body);
@@ -198,6 +209,5 @@ router.get('/profilePic',function(req,res){
         res.status(500).json({success: false, message: `Something wrong when reading buyer image. ${err}`});
     })
 });
-
 
 module.exports = router;

@@ -7,12 +7,11 @@ class Item extends Component {
         this.state = {
             imgURL: "",
             message: "",
-            cart: []
-
+            quantity: 1
         }
         //Bind the handlers to this class
-        // this.updateLocalStorage = this.updateLocalStorage.bind(this);
-        // this.updateStatus = this.updateStatus.bind(this);
+        this.quantityChangeHandler = this.quantityChangeHandler.bind(this);
+        this.addToCart = this.addToCart.bind(this);
     }
 
     componentDidMount(){
@@ -27,22 +26,27 @@ class Item extends Component {
         })
     }
 
-    // updateLocalStorage = e => {
-    //     let selectedItem = {
-    //         itemName: this.props.item.name,
-    //         itemPrice: this.props.item.price,
-    //         restId: this.props.item.rest_id
-    //     }
-    //     let cart = localStorage.getItem('cart');
-    //     localStorage.setItem('cart',cart.concat(selectedItem));
-    //     // sections : this.state.sections.concat(data.sections)
-    // }
+    quantityChangeHandler = e => {
+        this.setState({
+            quantity : e.target.value
+        })
+    }
+
+    addToCart = e => {
+        let item = {
+            id: this.props.item.id,
+            name: this.props.item.name,
+            price: this.props.item.price,
+            quantity: this.state.quantity
+        }
+        this.props.onAdd(this.props.item.rest_id, [item]);
+    }
 
     render(){
         console.log(this.state)
         return(
                 <div className="item-list-panel">
-                    <div style = {{display:'flex'}}>
+                    <div style = {{display:'flex', float: 'left', width: '80%'}}>
                         <div class="item-image">
                             <img class="rounded float-left img-thumbnail" id= {`item-pic-${this.props.item.id}`}
                             src= {this.state.imgURL} alt="Responsive image"/>
@@ -51,11 +55,18 @@ class Item extends Component {
                             <label style = {{paddingLeft:'5px'}}>{this.props.item.name}</label>  
                             <p style = {{paddingLeft:'5px'}}>{this.props.item.description}</p>
                             <p style = {{paddingLeft:'5px'}}>{`$${this.props.item.price}`}</p>
-                            <button style = {{paddingLeft:'5px'}}
-                            onClick = {this.updateLocalStorage}
-                            className="btn btn-primary btn-sm">Add to Cart</button>
+                            
                         </div> 
                     </div>
+                        <div style = {{float: 'right', width: '20%'}}>
+                            <label style = {{paddingLeft:'5px'}}>Quantity:</label>
+                            <input type="text" class="form-control" onChange = {this.quantityChangeHandler} 
+                            style={{width:'80px'}}
+                            name="quanity" value = {this.state.quantity}/>
+                            <button style = {{paddingLeft:'5px', marginTop: '5px'}}
+                            onClick = {this.addToCart}
+                            className="btn btn-primary btn-sm">Add to Cart</button>
+                        </div>
                 </div>
         )
     }

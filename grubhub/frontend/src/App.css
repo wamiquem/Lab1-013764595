@@ -423,3 +423,43 @@
 .item-list-panel .btn.btn-primary{
   margin: 2px;
 }
+
+.buyer-cart .main-div {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  max-width: 75%;
+  padding: 20px 0px 0px 0px;
+  align-content: center;
+}
+
+.buyer-cart .panel {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  padding: 20px;
+  align-content: center;
+  border: 1px solid #15141436;
+}
+
+.buyer-cart .form-control {
+  margin: 0 5px;
+}
+
+.buyer-checkout .main-div {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  max-width: 75%;
+  padding: 20px 0px 0px 0px;
+  align-content: center;
+}
+
+.buyer-checkout .panel {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  padding: 20px;
+  align-content: center;
+  border: 1px solid #15141436;
+}
+
+.buyer-checkout .form-control {
+  margin: 0 5px;
+}

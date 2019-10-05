@@ -115,7 +115,7 @@ class OwnerLogin extends Component {
                             <button onClick = {this.submitLogin} className="btn btn-primary">Login</button>                 
                         </div>
                     </div>
-                    <p><Link to="/owner/signup" >Create Account</Link></p>
+                    <p><Link to="/owner/signup">Create Account</Link></p>
                 </div>
             </div>
             

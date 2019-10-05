@@ -5,8 +5,8 @@ import BuyerHome from './BuyerHome';
 import BuyerSignup from './BuyerSignup';
 import BuyerAccount from './BuyerAccount';
 import PlaceOrder from './buyerOrders/PlaceOrder';
-
-const pages = ["login", "home", "signup", "account"]
+import Cart from './buyerOrders/Cart';
+import Checkout from './buyerOrders/Checkout'
 
 class Buyer extends React.Component{
     
@@ -20,6 +20,8 @@ class Buyer extends React.Component{
                     <Route path="/buyer/signup" component={BuyerSignup}/>
                     <Route path="/buyer/account" component={BuyerAccount}/>
                     <Route path="/buyer/place-order/:restId" component={PlaceOrder}/>
+                    <Route path="/buyer/cart" component={Cart}/>
+                    <Route path="/buyer/checkout" component={Checkout}/>
                     {/* <Route path = {match.url} component={BuyerLogin}/>
                     <Route path = {match.url} component={BuyerHome}/>
                     <Route path = {match.url} component={BuyerSignup}/>
@@ -28,7 +30,6 @@ class Buyer extends React.Component{
             </div>
             )
     }
-
 }
 
 export default Buyer
