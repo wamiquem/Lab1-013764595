@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import backendURL from '../../urlconfig';
 
-class OldOrder extends Component {
+class Order extends Component {
      constructor(props){
         super(props);
 
@@ -33,7 +33,7 @@ class OldOrder extends Component {
                     <label style = {{paddingLeft:'25px'}}>Quanity:</label>
                     <h7 style = {{paddingLeft:'5px'}}>{item.quantity}</h7>
                     <label style = {{paddingLeft:'25px'}}>Price:</label>
-                    <h7 style = {{paddingLeft:'5px'}}>{item.price}</h7>
+                    <h7 style = {{paddingLeft:'5px'}}>{`$${item.price}`}</h7>
                 </div>
             );
         });
@@ -41,26 +41,23 @@ class OldOrder extends Component {
             <div>
                 <hr/>
                 <label style = {{fontSize:'17px'}}>Order# {this.props.order.orderId}</label>
-                <h5 style = {{textDecoration:'underline'}}>Buyer Details</h5>
-                <div style = {{display:'flex'}}>
-                    <label>Buyer Name:</label>
-                    <h7 style = {{paddingLeft:'5px'}}>{this.props.order.buyerName}</h7>
-                    <label style = {{paddingLeft:'25px'}}>Buyer Address:</label>
-                    <h7 style = {{paddingLeft:'5px'}}>{this.props.order.buyerAddress}</h7>
-                </div>
                 <h5 style = {{textDecoration:'underline'}}>Order Details</h5>
                 {itemDetails}
                 <div style = {{display:'flex'}}>
                     <label>Total Price:</label>
-                    <h7 style = {{paddingLeft:'5px'}}>{this.props.order.orderPrice}</h7>
+                    <h7 style = {{paddingLeft:'5px'}}>{`$${this.props.order.orderPrice}`}</h7>
                 </div>
                 <div style = {{display:'flex'}}>
                     <label>Order Status:</label>
                     <h7 style = {{paddingLeft:'5px'}}>{this.props.order.orderStatus}</h7>
-                </div>                
+                </div>
+                <div style = {{display:'flex'}}>
+                    <label>Deliver To Address:</label>
+                    <h7 style = {{paddingLeft:'5px'}}>{this.props.order.buyerAddress}</h7>
+                </div>          
             </div>
         )
     }
 }
 
-export default OldOrder;
+export default Order;

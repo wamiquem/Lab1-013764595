@@ -24,7 +24,6 @@ class SectionsList extends Component {
                         <div className="main-div">
                             <div className="panel">
                                 <h4>Sections</h4>
-                                <hr/>
                                 {
                                     this.props.sections.map(section => {
                                         return <Section section = {section}

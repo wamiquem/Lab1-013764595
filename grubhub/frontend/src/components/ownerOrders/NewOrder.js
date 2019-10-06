@@ -93,6 +93,7 @@ class NewOrder extends Component {
         });
         return(
             <div>
+                <hr/>
                 <h2 style= {{color:"red"}}>{this.state.message}</h2>
                 <label style = {{fontSize:'17px'}}>Order# {this.props.order.orderId}</label>
                 <h5 style = {{textDecoration:'underline'}}>Buyer Details</h5>
@@ -128,8 +129,6 @@ class NewOrder extends Component {
                     <button onClick = {this.updateStatus}
                     className="btn btn-primary btn-status-change">Change Status</button>
                 </div>
-                
-                <hr/>
             </div>
         )
     }

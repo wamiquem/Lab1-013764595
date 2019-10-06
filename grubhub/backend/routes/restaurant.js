@@ -267,4 +267,38 @@ router.post('/updateOrder',function(req,res){
     })
 });
 
+router.get('/details',function(req,res){
+    console.log("Inside Restaurant Details Get Request");
+ 
+    queries.getRestaurantDetailsByOwnerId(req.cookies.cookie.id, row => {
+        console.log("row= ", row);
+        res.status(200).json({success: true, name: row.name, phone: row.phone, street: row.street, 
+            city: row.city, state: row.state, zip: row.zip, cuisine: row.cuisine});
+    }, err => {
+        res.status(500).json({success: false, message: `Something wrong when getting restaurant details. ${err}`});
+    })
+});
+
+router.get('/profilePic',function(req,res){
+    console.log("Inside restaurant profile pic Get Request");
+ 
+    queries.getRestaurantImageNameByOwnerId(req.cookies.cookie.id, row => {
+        res.sendFile(path.join(__dirname, `../uploads/${row.image}`));
+    }, err => {
+        res.status(500).json({success: false, message: `Something wrong when reading restaurant image. ${err}`});
+    })
+});
+
+router.post('/updateProfile',function(req,res){
+    console.log("Inside restaurant Update Profile Post Request");
+    console.log("Req Body : ",req.body);
+
+    queries.updateBuyerProfile(req.cookies.cookie.id, req.body, sqlresult => {
+        console.log("Number of records updated: " + sqlresult.affectedRows);
+        res.status(200).send({message:'Restaurant profile updated succesfully.'});    
+    }, err => {
+        res.status(500).json(`Something wrong when updating restaurant profile. ${err}`);
+    });
+});
+
 module.exports = router;

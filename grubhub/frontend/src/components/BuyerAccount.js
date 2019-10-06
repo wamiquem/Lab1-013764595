@@ -5,6 +5,8 @@ import {Redirect} from 'react-router';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import BuyerProfile from './BuyerProfile';
+import UpcomingOrders from './buyerOrders/UpcomingOrders';
+import PastOrders from './buyerOrders/PastOrders'
 
 class BuyerAccount extends Component {
 
@@ -22,8 +24,8 @@ class BuyerAccount extends Component {
                 <div >
                   <Switch>
                       <Route path="/buyer/account/profile" component={BuyerProfile}/>
-                      {/* <Route path="/buyer/account/past-orders" component={Section}/>
-                      <Route path="/buyer/account/upcoming-orders" component={Section}/> */}
+                      <Route path="/buyer/account/past-orders" component={PastOrders}/>
+                      <Route path="/buyer/account/upcoming-orders" component={UpcomingOrders}/>
                       {/* <Route path = {match.url} component={OwnerLogin}/>
                       <Route path = {match.url} component={OwnerHome}/>
                       <Route path = {match.url} component={OwnerSignup}/>

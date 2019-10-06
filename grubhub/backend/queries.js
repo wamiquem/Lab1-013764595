@@ -359,6 +359,20 @@ queries.updateRestaurant = (ownerId, restaurant, successcb, failurecb) => {
     });
 }
 
+queries.updateRestaurantImage = (restaurant, successcb, failurecb) => {
+    let sql = `UPDATE restaurants 
+    SET image = ?
+    WHERE owner_id = ?`;
+    let values = [restaurant.image, restaurant.id];
+    con.query(sql, values, function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
 queries.getRestaurantIdByOwnerId = (ownerId, successcb, failurecb) => {
     let sql = 'SELECT id FROM restaurants WHERE owner_id = ?';
 
@@ -584,6 +598,44 @@ queries.getAllOrders = (owner_id, successcb, failurecb) => {
     });
 }
 
+queries.getUpcomingOrdersbyBuyerId = (buyer_id, successcb, failurecb) => {
+    let sql = `SELECT distinct o.order_id, o.buyer_address, o.status, o.price,
+    o.restaurant_id, r.name
+        FROM orders o, buyers b, restaurants r 
+        WHERE o.buyer_id = b.id
+        AND r.id = o.restaurant_id
+        AND o.buyer_id =  1 
+        AND o.status not in  ("Delivered", "Cancel") order by order_id desc;` ;
+    let values = [buyer_id];
+    
+    con.query(sql, values, function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
+queries.getPastOrdersbyBuyerId = (buyer_id, successcb, failurecb) => {
+    let sql = `SELECT distinct o.order_id, o.buyer_address, o.status, o.price,
+    o.restaurant_id, r.name
+        FROM orders o, buyers b, restaurants r 
+        WHERE o.buyer_id = b.id
+        AND r.id = o.restaurant_id
+        AND o.buyer_id =  1 
+        AND o.status in  ("Delivered", "Cancel") order by order_id desc;` ;
+    let values = [buyer_id];
+    
+    con.query(sql, values, function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
 queries.getMenuItemsByOrderId = (order_id, successcb, failurecb) => {
     let sql = `SELECT  m.name, m.price, o.quantity from order_details o, menus m
     where o.menu_id = m.id
@@ -638,6 +690,60 @@ queries.getRestaurantsByCuisine = (cuisine, successcb, failurecb) => {
         }
         console.log("getRestaurantsByCuisine",result);
         successcb(result);
+    });
+}
+
+queries.getRestaurantDetailsByOwnerId = (ownerId, successcb, failurecb) => {
+    let sql = `SELECT name, phone, street, city, state, zip, cuisine
+    FROM restaurants WHERE owner_id = ?`;
+
+    con.query(sql, [ownerId], function (err, row){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(row[0]);
+    });
+}
+
+queries.getRestaurantImageNameByOwnerId = (ownerId, successcb, failurecb) => {
+    let sql = 'SELECT image FROM restaurants WHERE owner_id = ?';
+
+    con.query(sql, [ownerId], function (err, row){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(row[0]);
+    });
+}
+
+queries.updateRestaurantProfile = (ownerId, rest, successcb, failurecb) => {
+    let sql = `UPDATE restaurants 
+    SET name =?, phone = ?, street = ?, city = ?, state = ?, zip_code = ?, cuisine = ?
+    WHERE owner_id = ?`;
+
+    let values = [rest.name, rest.phone, rest.street, 
+        rest.city, rest.state, rest.zip, rest.cuisine, ownerId];
+    
+    con.query(sql, values, function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(result);
+    });
+}
+
+queries.getRestaurantImageNameById = (restaurantId, successcb, failurecb) => {
+    let sql = 'SELECT image FROM restaurants WHERE id = ?';
+
+    con.query(sql, [restaurantId], function (err, row){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        successcb(row[0]);
     });
 }
 

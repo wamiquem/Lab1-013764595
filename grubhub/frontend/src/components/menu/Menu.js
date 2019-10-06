@@ -205,6 +205,7 @@ class Menu extends Component {
 
         return(
             <div>
+                <hr/>
             <h2 style= {{color:"red"}}>{this.state.message}</h2>
             <div className = "menu-card" >
                 <div class = "menu-image">
@@ -249,7 +250,6 @@ class Menu extends Component {
                 {editCancel}
                 <button onClick = {this.deleteMenu} disabled={this.state.isEditable}
                 className="btn btn-primary">Delete</button>
-            <hr/>
             </div>
         )
     }

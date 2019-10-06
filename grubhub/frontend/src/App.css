@@ -365,6 +365,30 @@
   line-height: 20px;
 }
 
+.buyer-order-list .main-div {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  margin: 10px auto 30px;
+  max-width: 70%;
+  padding: 20px 0px 0px 0px;
+  align-content: center;
+}
+
+.buyer-order-list .panel {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  padding: 20px;
+  align-content: center;
+  border: 1px solid #15141436;
+}
+
+.buyer-order-list .panel p {
+  color:#777777;
+  font-size:14px;
+  margin-bottom: 5px;
+  line-height: 20px;
+}
+
 .btn-status-change {
   height: 35px;
 }
@@ -495,4 +519,28 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.buyerSearList {
+  padding: 15px;
+}
+.listrow {
+  border: 1px solid #ddd!important;
+  max-width: 80%;
+}
+
+.buyerInput {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.buyer-menu-image {
+  height: 200px; 
+  width: 200px;
+  padding-left: 10px;
+}
+
+.buyer-menu-image .img-thumbnail{
+  height: 100%; 
+  width: 100%;
 }

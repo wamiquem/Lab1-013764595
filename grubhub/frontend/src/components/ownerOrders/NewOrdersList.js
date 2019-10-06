@@ -18,7 +18,6 @@ class NewOrdersList extends Component {
                                     <button style = {{marginLeft:'20px'}} onClick = {()=> {window.location.reload()}}
                                     className="btn btn-primary btn-status-change">Refresh</button>
                                 </div>
-                                <hr/>
                                 {
                                     this.props.orders.map(order => {
                                         return <NewOrder order = {order}/>

@@ -14,7 +14,6 @@ class OldOrdersList extends Component {
                         <div className="main-div">
                             <div className="panel">
                                 <h4>Old Orders</h4>
-                                <hr/>
                                 {
                                     this.props.orders.map(order => {
                                         return <OldOrder order = {order}/>

@@ -9,9 +9,10 @@ class Sidebar extends Component {
     
     render(){
         let menuOptions = this.props.options.map(option => {
+            const route = option.replace(" ", "-")
             return(
                 <li>
-                    <Link to={`/${this.props.user}/${this.props.module}/${option.toLowerCase()}`}>{option}</Link>
+                    <Link to={`/${this.props.user}/${this.props.module}/${route.toLowerCase()}`}>{option}</Link>
                 </li>
             )
         })

@@ -50,18 +50,23 @@ router.post('/owner-profile-image', (req, res) => {
     });
 });
 
-router.post('/restaurant-image', (req, res) => {
+router.post('/restaurant-profile-image', (req, res) => {
     upload(req, res, function(err){
         if(err){
             res.status(500).send({message: `Restaurant Image uploaded failed due to internal issue. ${err}`});
             return;
         }
-        queries.updateRestaurantImage({id: req.body.id, image: req.file.filename}, sqlresult => {
-            console.log("Number of records updated: " + sqlresult.affectedRows);
-            res.status(200).send({message:'Restaurant image updated succesfully.'});    
+        queries.getRestaurantIdByOwnerId(req.cookies.cookie.id, result => {
+            queries.updateRestaurantImage({id: result.id, image: req.file.filename}, sqlresult => {
+                console.log("Number of records updated: " + sqlresult.affectedRows);
+                res.status(200).send({message:'Restaurant image updated succesfully.'});    
+            }, err => {
+                res.status(500).json(`Something wrong when updating restaurant image in the table. ${err}`);
+            }); 
         }, err => {
-            res.status(500).json(`Something wrong when updating restaurant image in the table. ${err}`);
-        }); 
+
+        });
+        
     });
 });
 

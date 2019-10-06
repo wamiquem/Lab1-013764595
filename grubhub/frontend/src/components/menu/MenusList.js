@@ -23,14 +23,30 @@ class MenusList extends Component {
                     <div className="menus-list">
                         <div className="main-div">
                             <div className="panel">
-                                <h4>Menus</h4>
-                                <hr/>
                                 {
-                                    this.props.menus.map(menu => {
-                                        return <Menu menu = {menu} sections = {this.props.sections}
-                                        onDelete = {this.handleDelete}
-                                        onEditChange = {this.handleEditChange}/>
-                                    })
+                                    this.props.sections.map(section => {
+                                        return(
+                                            <div>
+                                                <h4 style = {{textDecoration: 'underline'}}>{section.name}</h4>
+                                                {
+                                                this.props.menus.filter(menu => menu.section_id === section.id)
+                                                .map(menu => {
+                                                    return <Menu menu = {menu} sections = {this.props.sections}
+                                                    onDelete = {this.handleDelete}
+                                                    onEditChange = {this.handleEditChange}/>
+                                                })
+                                                }
+                                            </div>
+                                        )
+                                    })    
+
+
+
+                                    // this.props.menus.map(menu => {
+                                    //     return <Menu menu = {menu} sections = {this.props.sections}
+                                    //     onDelete = {this.handleDelete}
+                                    //     onEditChange = {this.handleEditChange}/>
+                                    // })
 
                                 }
                             </div>

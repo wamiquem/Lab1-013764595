@@ -128,6 +128,7 @@ class Section extends Component {
 
         return(
             <div>
+                <hr/>
                 <h2 style= {{color:"red"}}>{this.state.message}</h2>
                 <div className = "section-bar">
                     <input  onChange = {this.handleEditChange} 
@@ -139,7 +140,6 @@ class Section extends Component {
                     <button onClick = {this.deleteSection} disabled={this.state.isEditable}
                     className="btn btn-primary">Delete</button>
                 </div>
-                <hr/>
             </div>
         )
     }

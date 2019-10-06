@@ -5,6 +5,7 @@ import {Redirect} from 'react-router';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Sections from './sections/Sections';
+import RestaurantProfile from './RestaurantProfile';
 import Menus from './menu/Menus';
 
 //create the Restaurant Component
@@ -23,7 +24,7 @@ class Restaurant extends Component {
                     <Sidebar user = {'owner'} options = {['Profile', 'Sections', 'Menu']} module={'restaurant'}/>
                     <div className = "right-side-area">
                         <Switch>
-                        {/* <Route path="/owner/restaurant/profile" component={RestaurantProfile}/> */}
+                        <Route path="/owner/restaurant/profile" component={RestaurantProfile}/>
                         <Route path="/owner/restaurant/sections" component={Sections}/>
                         <Route path="/owner/restaurant/menu" component={Menus}/>
 

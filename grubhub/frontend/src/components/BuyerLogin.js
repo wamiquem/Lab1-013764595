@@ -113,10 +113,10 @@ class BuyerLogin extends Component {
                             <div className="form-group">
                                 <input onChange = {this.passwordChangeHandler} type="password" className="form-control" name="password" placeholder="Password"/>
                             </div>
-                            <button onClick = {this.submitLogin} className="btn btn-primary">Login</button>                 
+                            <button onClick = {this.submitLogin} className="btn btn-primary">Login</button>
+                            <p><Link to="/buyer/signup">Create Account</Link></p>            
                         </div>
                     </div>
-                    <p><Link to="/buyer/signup" >Create Account</Link></p>
                 </div>
             </div>
             

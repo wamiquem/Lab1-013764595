@@ -16,8 +16,7 @@ class Checkout extends Component {
             zip: "",
             phone: "",
             message: "",
-            success: false,
-            orderId: ""
+            success: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.updateBuyerDetails = this.updateBuyerDetails.bind(this);
@@ -107,9 +106,12 @@ class Checkout extends Component {
             if(res.status === 200){
                 res.text().then(data => {
                     console.log(data);
+                    let resdata = JSON.parse(data);
                     this.setState({
-                        message: JSON.parse(data).message
-                    })
+                        message: resdata.message,
+                        success: resdata.success
+                    });
+                    localStorage.removeItem('cart');
                 });
             }else{
                 res.text().then(data => {
@@ -131,6 +133,9 @@ class Checkout extends Component {
         }
         if(!this.props.location.state){
             redirectVar = <Redirect to= "/buyer/cart"/>
+        }
+        if(this.state.success){
+            redirectVar = <Redirect to= "/buyer/account/upcoming-orders"/>
         }
         return(
             <div>

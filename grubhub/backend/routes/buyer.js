@@ -39,6 +39,7 @@ router.post('/login',function(req,res){
                     res.cookie('cookie',{id: row.id},{maxAge: 900000, httpOnly: false, path : '/'});
                     req.session.user = email;
                     res.status(200).json({success: true, message: "Buyer Login successful", id: row.id});
+                    console.log("Response Status", res.statusCode);
                 }else{
                     res.status(401).json({success: false, message: "Incorrect Password"});
                 }
@@ -168,10 +169,11 @@ router.post('/updateProfile',function(req,res){
 
 router.get('/firstName',function(req,res){
     console.log("Inside buyer First Name Get Request");
-    console.log("Req Body : ",req.body);
+    console.log("Req Cookie : ",req.cookies.cookie.id);
  
     queries.getBuyerFirstNameById(req.cookies.cookie.id, row => {
         res.status(200).json({success: true, firstName: row.fname});
+        console.log("Response Status", res.statusCode);
     }, err => {
         res.status(500).json({success: false, message: `Something wrong when reading buyer first name. ${err}`});
     })
@@ -196,7 +198,7 @@ router.get('/details',function(req,res){
         res.status(200).json({success: true, firstName: row.fname, lastName: row.lname, phone: row.phone,
             street: row.street, unit: row.unit_no, city: row.city, state: row.state, zip: row.zip_code});
     }, err => {
-        res.status(200).json({success: false, message: `Something wrong when reading buyer first name. ${err}`});
+        res.status(200).json({success: false, message: `Something wrong when getting buyer details. ${err}`});
     })
 });
 
@@ -256,6 +258,51 @@ router.post('/placeOrder',function(req,res){
     }, err=> {
         res.status(500).send({ message: `Something failed when getting owner id from the table. ${err.message}`});
     });
+});
+
+router.get('/upcomingOrders',function(req,res){
+    console.log("Inside Buyer Upcoming Orders Get Request");
+    console.log("Req Body : ",req.body);
+    
+    queries.getUpcomingOrdersbyBuyerId(req.cookies.cookie.id, row => {
+        const orders = row.map(order => {
+            return {
+                orderId: order.order_id, buyerAddress: order.buyer_address,
+                restName: order.name, orderPrice: order.price, orderStatus: order.status
+            }
+        });
+        res.status(200).json({success: true, orders: orders});
+    }, err=> {
+        res.status(500).send({ message: `Something failed when getting order details from the table. ${err.message}`});
+    });
+});
+
+router.get('/pastOrders',function(req,res){
+    console.log("Inside Buyer Past Orders Get Request");
+    console.log("Req Body : ",req.body);
+    
+    queries.getPastOrdersbyBuyerId(req.cookies.cookie.id, row => {
+        const orders = row.map(order => {
+            return {
+                orderId: order.order_id, buyerAddress: order.buyer_address,
+                restName: order.name, orderPrice: order.price, orderStatus: order.status
+            }
+        });
+        res.status(200).json({success: true, orders: orders});
+    }, err=> {
+        res.status(500).send({ message: `Something failed when getting order details from the table. ${err.message}`});
+    });
+});
+
+router.get('/restaurantImage/:restaurantId',function(req,res){
+    console.log("Inside restaurant profile pic Get Request");
+    const restaurantId = (req.params.restaurantId) ? req.params.restaurantId : "";
+
+    queries.getRestaurantImageNameById(restaurantId, row => {
+        res.sendFile(path.join(__dirname, `../uploads/${row.image}`));
+    }, err => {
+        res.status(500).json({success: false, message: `Something wrong when reading restaurant image. ${err}`});
+    })
 });
 
 module.exports = router;
