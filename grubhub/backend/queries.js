@@ -331,7 +331,7 @@ queries.updateOwnerImage = (owner, successcb, failurecb) => {
 
 queries.createRestaurant = (restaurant, successcb, failurecb) => {
     let sql = `INSERT INTO restaurants 
-    (id, name, phone, street, city, state, zip, cuisine, image) 
+    (owner_id, name, phone, street, city, state, zip, cuisine, image) 
     VALUES ?`;
     let values = [restaurant.ownerId, restaurant.name, restaurant.phone, restaurant.street, restaurant.city, 
         restaurant.state, restaurant.zip, restaurant.cuisine, 'rest_default_image.jpg'];
@@ -616,7 +616,7 @@ queries.updateOrderStatus = (order, successcb, failurecb) => {
 
 queries.getAllMatchingRestaurants = (menuItem, successcb, failurecb) => {
     console.log("Inside name", menuItem);
-    let sql = `SELECT r.id, r.name, street, city, state from restaurants r, menus m
+    let sql = `SELECT distinct r.cuisine, r.id, r.name, street, city, state from restaurants r, menus m
             WHERE r.id = m.rest_id
             AND m.name like '%` + menuItem +  `%' `;
     con.query(sql, function (err, result){
@@ -624,11 +624,9 @@ queries.getAllMatchingRestaurants = (menuItem, successcb, failurecb) => {
             failurecb(err);
             return;
         }
-        console.log("getAllMatchingRestaurants",result);
         successcb(result);
     });
 }
-
 
 queries.getRestaurantsByCuisine = (cuisine, successcb, failurecb) => {
     let sql = `SELECT name, street, city, state from restaurants r
