@@ -62,50 +62,12 @@ class BuyerHome extends Component {
                                     <input type="text" className="input" size="100"  name = "menuItem"
                                     onChange = {this.changeHandler} placeholder="Pizza, Sushi, Biryani..." />
                                     </div>
-                                    {/* {/<button onClick = {this.getRestaurants} className="btn btn-primary">Find Restaurants</button>/} */}
-                                    <div  class="col-md-4"><button className="buyerhomeButton"><Link to={`/buyer/search/${this.state.menuItem}`}>Search Restaurants</Link></button></div>
+                                    <div  class="col-md-4">
+                                        <button className="buyerhomeButton">
+                                            <Link to={`/buyer/search/${this.state.menuItem}`}>Search Restaurants</Link>
+                                        </button>
+                                    </div>
                                 </div>
-                        {/* <div className="main-div-buyer-home">
-                            <div>
-                                <div><h4>Home Page - Who Deliver in your neighbourhood?</h4></div>
-                                <img width = '100%' height = '10%' src={burger} alt="Responsive image"></img>
-                                <h2 style= {{color:"red"}}>{this.state.message}</h2>
-                                <h4>Home Page - Who Deliver in your neighbourhood?</h4>
-                                <div className="buyer-home">
-                                    <input type="text" className="input" name = "menuItem"
-                                    onChange = {this.changeHandler} placeholder="Pizza, Sushi, Biryani..." />
-                                    <button onClick = {this.getRestaurants} className="btn btn-primary">Find Restaurants</button>
-                                    <button><Link to={`/buyer/search/${this.state.menuItem}`}>Search Restaurants</Link></button>
-                                </div>
-                            </div>
-                                <li> Name of the restaruant :  {this.state.restaurantName} </li>
-                                <div>
-                                    <table  style= {{border: 10, width:500}}>
-                                        <thead>
-                                            <th>Name</th>
-                                            <th>City</th>
-                                            <th>Street</th>
-                                            <th>State</th>
-                                        </thead>
-                                        <tbody>
-                                        { isRestaurants
-                                            ?
-                                            this.state.restaurants.map(restaurant => {
-                                                return (
-                                                    <tr>
-                                                    <td>{restaurant.name}</td>
-                                                    <td>{restaurant.city}</td>
-                                                    <td>{restaurant.street}</td>
-                                                    <td>{restaurant.state}</td>
-                                                    </tr>
-                                                )
-                                            })
-                                            : <tr> </tr>
-                                        }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div> */}
                     </div>
             </div>
         )
