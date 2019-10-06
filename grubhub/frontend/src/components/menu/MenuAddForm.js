@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import menuImage from '../../images/menu_default_image.png'
+import backendURL from '../../urlconfig';
 
 class MenuAddForm extends Component {
      constructor(props){
@@ -25,7 +26,7 @@ class MenuAddForm extends Component {
     componentDidMount(){
         console.log("inside component mount");
         if(cookie.load('cookie')){
-            fetch('http://localhost:3101/restaurant/sections',{
+            fetch(`${backendURL}/restaurant/sections`,{
                 credentials: 'include'
              })
             .then(res => res.json())
@@ -56,7 +57,7 @@ class MenuAddForm extends Component {
     }
 
     postMenuData = (data,successcb) => {
-        fetch('http://localhost:3101/restaurant/addMenu', {
+        fetch(`${backendURL}/restaurant/addMenu`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',
@@ -114,7 +115,7 @@ class MenuAddForm extends Component {
                 formData.append('image', document.querySelector('input[type="file"]').files[0]);
                 formData.append('menuId', menuId);
                 
-                fetch('http://localhost:3101/upload/menu-image', {
+                fetch(`${backendURL}/upload/menu-image`, {
                     method: 'POST',
                     credentials: 'include',
                     body: formData

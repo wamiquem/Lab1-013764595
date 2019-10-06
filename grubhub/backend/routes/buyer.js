@@ -168,7 +168,7 @@ router.post('/updateProfile',function(req,res){
 
 router.get('/firstName',function(req,res){
     console.log("Inside buyer First Name Get Request");
-    console.log("Req Cookie : ",req.body);
+    console.log("Req Body : ",req.body);
  
     queries.getBuyerFirstNameById(req.cookies.cookie.id, row => {
         res.status(200).json({success: true, firstName: row.fname});
@@ -207,6 +207,31 @@ router.get('/profilePic',function(req,res){
         res.sendFile(path.join(__dirname, `../uploads/${row.image}`));
     }, err => {
         res.status(500).json({success: false, message: `Something wrong when reading buyer image. ${err}`});
+    })
+});
+
+router.get('/searchRestaurants',function(req,res){
+    console.log("req",req);
+
+    const name = (req.query.menuItem) ? req.query.menuItem : "";
+    console.log("name",name);
+    queries.getAllMatchingRestaurants(name, row => {
+        console.log("row",row);
+
+        res.status(200).json({success1: true, row});
+    }, err => {
+        res.status(500).json({success: false, message: `Something wrong while getting restaurants ${err}`});
+    })
+});
+
+router.get('/filterRestaurants',function(req,res){
+    const cuisine = "chinese";
+    queries.getRestaurantsByCuisine(cuisine, row => {
+        console.log("row",row);
+
+        res.status(200).json({success1: true, row});
+    }, err => {
+        res.status(500).json({success: false, message: `Something wrong while filtering all restaurants ${err}`});
     })
 });
 

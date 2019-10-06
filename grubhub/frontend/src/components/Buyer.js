@@ -7,6 +7,7 @@ import BuyerAccount from './BuyerAccount';
 import PlaceOrder from './buyerOrders/PlaceOrder';
 import Cart from './buyerOrders/Cart';
 import Checkout from './buyerOrders/Checkout'
+import BuyerSearch from './BuyerSearch';
 
 class Buyer extends React.Component{
     
@@ -19,6 +20,8 @@ class Buyer extends React.Component{
                     <Route path="/buyer/home" component={BuyerHome}/>
                     <Route path="/buyer/signup" component={BuyerSignup}/>
                     <Route path="/buyer/account" component={BuyerAccount}/>
+                    <Route path="/buyer/search/:menuItem" component={BuyerSearch}/>
+                    <Route path="/buyer/search/" component={BuyerSearch}/>
                     <Route path="/buyer/place-order/:restId" component={PlaceOrder}/>
                     <Route path="/buyer/cart" component={Cart}/>
                     <Route path="/buyer/checkout" component={Checkout}/>

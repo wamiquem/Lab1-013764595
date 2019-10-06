@@ -42,3 +42,5 @@ app.use('/restaurant', restaurant);
 //start your server on port 3101
 app.listen(3101);
 console.log("Server Listening on port 3101.");
+
+module.exports = app;

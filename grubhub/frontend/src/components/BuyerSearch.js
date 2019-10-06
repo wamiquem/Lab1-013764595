@@ -3,11 +3,10 @@ import {Link} from 'react-router-dom';
 import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import Navbar from './Navbar';
-import burger from '../images/main_page_burger.jpg'
 import backendURL from '../urlconfig';
 
 //create the Navbar Component
-class BuyerHome extends Component {
+class BuyerSearch extends Component {
      //call the constructor method
      constructor(props){
         //Call the constrictor of Super class i.e The Component
@@ -15,10 +14,11 @@ class BuyerHome extends Component {
         //maintain the state required for this component
         this.state = {
             firstName: "",
-            restaurants: "",
-            menuItem: ""
+            restaurants: null,
+            menuItem: props.match.params.menuItem
         }
-        this.changeHandler = this.changeHandler.bind(this);
+        this.searchRestaurants = this.searchRestaurants.bind(this);
+        this.filterRestaurants = this.filterRestaurants.bind(this);
     }
 
     //get the first name of buyer from backend  
@@ -34,15 +34,36 @@ class BuyerHome extends Component {
                 })
             })
             .catch(err => console.log(err));
+            this.searchRestaurants();
         }
     }
-
-    changeHandler = (e) => {
-        this.setState({
-            [e.target.name] : e.target.value
-        })
-    }
     
+    searchRestaurants(){
+        fetch(`${backendURL}/buyer/searchRestaurants/?menuItem=${this.state.menuItem}`,{
+            credentials: 'include'
+            })
+            .then(res => res.json())
+            .then(data => {
+                this.setState({
+                    restaurants: data.row
+                })
+            })
+            .catch(err => console.log(err));
+    }
+
+    filterRestaurants(){
+        fetch(`${backendURL}/buyer/filterRestaurants`,{
+            credentials: 'include'
+            })
+            .then(res => res.json())
+            .then(data => {
+                this.setState({
+                    restaurants: data.row
+                })
+            })
+            .catch(err => console.log(err));
+    }
+
     render(){
         const isRestaurants = this.state.restaurants;
         let redirectVar = null;
@@ -54,31 +75,25 @@ class BuyerHome extends Component {
                 {redirectVar}
 
                 <Navbar firstName = {this.state.firstName} />
-                 <div className="container">
-                                <img width = '100%' height = '10%' src={burger} alt="Responsive image"/>
-                                <div className="buyer-home">
-                                    <div class="col-md-12"><h4>Home Page - Who Deliver in your neighbourhood?</h4></div>
-                                    <div class="col-md-8">
-                                    <input type="text" className="input" size="100"  name = "menuItem"
-                                    onChange = {this.changeHandler} placeholder="Pizza, Sushi, Biryani..." />
-                                    </div>
-                                    {/* {/<button onClick = {this.getRestaurants} className="btn btn-primary">Find Restaurants</button>/} */}
-                                    <div  class="col-md-4"><button className="buyerhomeButton"><Link to={`/buyer/search/${this.state.menuItem}`}>Search Restaurants</Link></button></div>
+                {/* <Navbar firstName = {"test"} /> */}
+
+                <div className="container">
+                    <div className="add-section-form">
+                        <div className="main-div">
+                            <div className="panel">
+                            <h2 style= {{color:"red"}}>{this.state.message}</h2>
+                                <h4>Search Page</h4>
+                                <hr/>
+                                <div>
+                                    <button onClick = {this.searchRestaurants} className="btn btn-primary">Find Restaurants                
+                                        {/* <Link to="/buyer/search">Search Restaurants</Link> */}
+                                    </button> 
                                 </div>
-                        {/* <div className="main-div-buyer-home">
-                            <div>
-                                <div><h4>Home Page - Who Deliver in your neighbourhood?</h4></div>
-                                <img width = '100%' height = '10%' src={burger} alt="Responsive image"></img>
-                                <h2 style= {{color:"red"}}>{this.state.message}</h2>
-                                <h4>Home Page - Who Deliver in your neighbourhood?</h4>
-                                <div className="buyer-home">
-                                    <input type="text" className="input" name = "menuItem"
-                                    onChange = {this.changeHandler} placeholder="Pizza, Sushi, Biryani..." />
-                                    <button onClick = {this.getRestaurants} className="btn btn-primary">Find Restaurants</button>
-                                    <button><Link to={`/buyer/search/${this.state.menuItem}`}>Search Restaurants</Link></button>
+                                <div>
+                                <button onClick = {this.filterRestaurants} className="btn btn-primary">Filter Restaurants                
+                                    </button> 
                                 </div>
-                            </div>
-                                <li> Name of the restaruant :  {this.state.restaurantName} </li>
+                                {/* <li> Name of the restaruant :  {this.state.restaurantName} </li> */}
                                 <div>
                                     <table  style= {{border: 10, width:500}}>
                                         <thead>
@@ -88,7 +103,7 @@ class BuyerHome extends Component {
                                             <th>State</th>
                                         </thead>
                                         <tbody>
-                                        { isRestaurants
+                                        { isRestaurants 
                                             ?
                                             this.state.restaurants.map(restaurant => {
                                                 return (
@@ -96,20 +111,22 @@ class BuyerHome extends Component {
                                                     <td>{restaurant.name}</td>
                                                     <td>{restaurant.city}</td>
                                                     <td>{restaurant.street}</td>
-                                                    <td>{restaurant.state}</td>
+                                                    <td><Link to={`/buyer/place-order/${restaurant.id}`}>{restaurant.id}</Link></td>
                                                     </tr>
                                                 )
                                             })
-                                            : <tr> </tr>
+                                            : <tr> NA </tr>
                                         }
                                         </tbody>
                                     </table>
                                 </div>
-                            </div> */}
+                            </div>
+                        </div>
                     </div>
+                </div>
             </div>
         )
     }
 }
 
-export default BuyerHome;
+export default BuyerSearch;

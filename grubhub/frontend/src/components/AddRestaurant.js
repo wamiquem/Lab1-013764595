@@ -2,7 +2,8 @@ import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Redirect} from 'react-router';
 import Navbar from './Navbar';
-import restImage from '../images/rest_default_image.jpg'
+import restImage from '../images/rest_default_image.jpg';
+import backendURL from '../urlconfig';
 
 //create the Owner Signup Component
 class AddRestaurant extends Component {
@@ -59,7 +60,7 @@ class AddRestaurant extends Component {
             cuisine: this.state.cuisine
         }
 
-        fetch('http://localhost:3101/owner/addRestaurant', {
+        fetch(`${backendURL}/owner/addRestaurant`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',

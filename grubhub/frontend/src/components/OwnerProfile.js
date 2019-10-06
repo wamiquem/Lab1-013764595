@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import cookie from 'react-cookies';
+import backendURL from '../urlconfig';
 
 //create the Owner Profile Component
 class OwnerProfile extends Component {
@@ -25,7 +26,7 @@ class OwnerProfile extends Component {
     
     componentDidMount(){
         if(cookie.load('cookie')){
-            fetch('http://localhost:3101/owner/details',{
+            fetch(`${backendURL}/owner/details`,{
                 credentials: 'include'
              })
             .then(res => res.json())
@@ -40,7 +41,7 @@ class OwnerProfile extends Component {
             })
             .catch(err => console.log(err));
 
-            fetch('http://localhost:3101/owner/profilePic',{
+            fetch(`${backendURL}/owner/profilePic`,{
                 credentials: 'include'
             })
             .then(res => res.blob())
@@ -85,7 +86,7 @@ class OwnerProfile extends Component {
         const formData = new FormData();
         formData.append('image', document.querySelector('input[type="file"]').files[0]);
         
-        fetch('http://localhost:3101/upload/owner-profile-image', {
+        fetch(`${backendURL}/upload/owner-profile-image`, {
             method: 'POST',
             credentials: 'include',
             body: formData
@@ -116,7 +117,7 @@ class OwnerProfile extends Component {
         e.preventDefault();
         const data = this.state;
         console.log(data)
-        fetch('http://localhost:3101/owner/updateProfile', {
+        fetch(`${backendURL}/owner/updateProfile`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',

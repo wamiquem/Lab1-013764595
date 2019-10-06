@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import Navbar from './Navbar';
+import backendURL from '../urlconfig';
 
 //create the Navbar Component
 class BuyerLogin extends Component {
@@ -51,7 +52,7 @@ class BuyerLogin extends Component {
             password : this.state.password
         }
 
-        fetch('http://localhost:3101/buyer/login', {
+        fetch(`${backendURL}/buyer/login`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',

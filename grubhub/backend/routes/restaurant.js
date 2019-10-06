@@ -232,7 +232,7 @@ router.get('/allOrders',function(req,res){
         const orders = row.map(order => {
             return {
                 orderId: order.order_id, buyerName: `${order.fname} ${order.lname}`, 
-                buyerAddress: `${order.unit_no}, ${order.street}, ${order.city}, ${order.zip_code}`,
+                buyerAddress: order.buyer_address,
                 orderPrice: order.price, orderStatus: order.status
             }
         });

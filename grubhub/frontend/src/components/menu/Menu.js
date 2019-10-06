@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import backendURL from '../../urlconfig';
 
 class Menu extends Component {
      constructor(props){
@@ -21,7 +22,7 @@ class Menu extends Component {
     }
 
     componentDidMount(){
-        fetch(`http://localhost:3101/restaurant/menuImage/${this.props.menu.id}`,{
+        fetch(`${backendURL}/restaurant/menuImage/${this.props.menu.id}`,{
                 credentials: 'include'
             })
             .then(res => res.blob())
@@ -68,7 +69,7 @@ class Menu extends Component {
     }
 
     postMenuData = (data,successcb) => {
-        fetch('http://localhost:3101/restaurant/updateMenu', {
+        fetch(`${backendURL}/restaurant/updateMenu`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',
@@ -121,7 +122,7 @@ class Menu extends Component {
             formData.append('image', this.state.imageFile);
             formData.append('menuId', this.props.menu.id);
             
-            fetch('http://localhost:3101/upload/menu-image', {
+            fetch(`${backendURL}/upload/menu-image`, {
                 method: 'POST',
                 credentials: 'include',
                 body: formData
@@ -145,7 +146,7 @@ class Menu extends Component {
             id : this.props.menu.id
         }
 
-        fetch('http://localhost:3101/restaurant/deleteMenu', {
+        fetch(`${backendURL}/restaurant/deleteMenu`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',

@@ -5,6 +5,7 @@ import {Redirect} from 'react-router';
 import Navbar from './Navbar';
 import OldOrdersList from './ownerOrders/OldOrdersList';
 import NewOrdersList from './ownerOrders/NewOrdersList';
+import backendURL from '../urlconfig';
 
 class OwnerHome extends Component {
      //call the constructor method
@@ -16,13 +17,12 @@ class OwnerHome extends Component {
             firstName: "",
             orders: []
         }
-        this.handleEditChange = this.handleEditChange.bind(this);
     }
 
     //get the first name of owner from backend  
     componentDidMount(){
         if(cookie.load('cookie')){
-            fetch('http://localhost:3101/owner/firstName',{
+            fetch(`${backendURL}/owner/firstName`,{
             credentials: 'include'
             })
             .then(res => res.json())
@@ -33,7 +33,7 @@ class OwnerHome extends Component {
             })
             .catch(err => console.log(err));
 
-            fetch('http://localhost:3101/restaurant/allOrders',{
+            fetch(`${backendURL}/restaurant/allOrders`,{
             credentials: 'include'
             })
             .then(res => res.json())
@@ -45,26 +45,6 @@ class OwnerHome extends Component {
             })
             .catch(err => console.log(err));
         }
-    }
-
-    handleEditChange(id, name, value) {
-        this.setState(state => {
-            const orders = state.orders.map(order => {
-                // Find a order with the matching id
-                if(order.orderId == id){
-                    //Return a new object
-                    return{
-                        ...order, //copy the existing section
-                        [name]: value  //replace the name with new name
-                    }
-                }
-                // Leave every other section unchanged
-                return order;
-            });
-            return {
-                orders
-            };
-        });
     }
     
     render(){
@@ -79,7 +59,8 @@ class OwnerHome extends Component {
             <div>
                 {redirectVar}
                 <Navbar firstName = {this.state.firstName} />
-                <NewOrdersList orders = {newOrders} onEditChange = {this.handleEditChange}/>
+                <NewOrdersList orders = {newOrders}/>
+                <OldOrdersList orders = {oldOrders}/>
             </div>
         )
     }

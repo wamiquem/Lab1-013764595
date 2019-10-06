@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
+import backendURL from '../../urlconfig';
 
 class SectionAddForm extends Component {
      constructor(props){
@@ -28,7 +29,7 @@ class SectionAddForm extends Component {
             name : this.state.name
         }
 
-        fetch('http://localhost:3101/restaurant/addSection', {
+        fetch(`${backendURL}/restaurant/addSection`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',

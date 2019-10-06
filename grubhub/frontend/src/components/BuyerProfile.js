@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import backendURL from '../urlconfig';
 
 //create the Buyer Profile Component
 class BuyerProfile extends Component {
@@ -53,7 +54,7 @@ class BuyerProfile extends Component {
             }
         };
         
-        fetch('http://localhost:3101/upload/buyer-profile-image', {
+        fetch(`${backendURL}/upload/buyer-profile-image`, {
             method: 'POST',
             credentials: 'include',
             body: formData
@@ -84,7 +85,7 @@ class BuyerProfile extends Component {
         //prevent page from refresh
         e.preventDefault();
         const data = this.props.buyerDetails;
-        fetch('http://localhost:3101/buyer/updateProfile', {
+        fetch(`${backendURL}/buyer/updateProfile`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',

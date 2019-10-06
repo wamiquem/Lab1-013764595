@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import cookie from 'react-cookies';
 import SectionAddForm from './SectionAddForm';
 import SectionsList from './SectionsList';
+import backendURL from '../../urlconfig';
 
 //create the Owner Profile Component
 class Sections extends Component {
@@ -52,7 +53,7 @@ class Sections extends Component {
     
     componentDidMount(){
         if(cookie.load('cookie')){
-            fetch('http://localhost:3101/restaurant/sections/',{
+            fetch(`${backendURL}/restaurant/sections/`,{
                 credentials: 'include'
              })
             .then(res => res.json())

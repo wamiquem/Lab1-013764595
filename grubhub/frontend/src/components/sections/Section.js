@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import backendURL from '../../urlconfig';
 
 class Section extends Component {
      constructor(props){
@@ -40,7 +41,7 @@ class Section extends Component {
             name : this.props.section.name
         }
 
-        fetch('http://localhost:3101/restaurant/updateSection', {
+        fetch(`${backendURL}/restaurant/updateSection`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',
@@ -80,7 +81,7 @@ class Section extends Component {
             id : this.props.section.id
         }
 
-        fetch('http://localhost:3101/restaurant/deleteSection', {
+        fetch(`${backendURL}/restaurant/deleteSection`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',

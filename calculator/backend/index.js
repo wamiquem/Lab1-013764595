@@ -14,6 +14,7 @@ app.post('/',function(req,res){
 
     try{
         var result = eval(req.body.expression);
+        console.log("Result=", result);
         res.status(200).json(result);
     }catch(err){
         res.status(500).json('Error');

@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import backendURL from '../../urlconfig';
 
 class Item extends Component {
      constructor(props){
@@ -15,7 +16,7 @@ class Item extends Component {
     }
 
     componentDidMount(){
-        fetch(`http://localhost:3101/restaurant/menuImage/${this.props.item.id}`,{
+        fetch(`${backendURL}/restaurant/menuImage/${this.props.item.id}`,{
                 credentials: 'include'
             })
             .then(res => res.blob())

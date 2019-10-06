@@ -1,20 +1,17 @@
 import React,{Component} from 'react';
+import backendURL from '../../urlconfig';
 
-class Order extends Component {
+class OldOrder extends Component {
      constructor(props){
         super(props);
 
         this.state = {
-            menuItems: [],
-            status: ""
+            menuItems: []
         }
-        //Bind the handlers to this class
-        this.handleEditChange = this.handleEditChange.bind(this);
-        this.updateStatus = this.updateStatus.bind(this);
     }
 
     componentDidMount(){
-        fetch(`http://localhost:3101/restaurant/orderedItems/${this.props.order.orderId}`,{
+        fetch(`${backendURL}/restaurant/orderedItems/${this.props.order.orderId}`,{
                 credentials: 'include'
         })
         .then(res => res.json())
@@ -27,57 +24,8 @@ class Order extends Component {
         .catch(err => console.log(err));
     }
 
-    updateStatus = (e) => {
-        //prevent page from refresh
-        e.preventDefault();
-        const data = {
-            id : this.props.order.orderId,
-            status : this.state.status
-        }
-
-        fetch('http://localhost:3101/restaurant/updateOrder', {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json,  text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify(data)
-        })
-        .then(res => {
-            if(res.status === 200){
-                res.text().then(data => {
-                    console.log(data);
-                    let responseMessage = JSON.parse(data).message;
-                    this.setState({
-                        message: responseMessage,
-                    })
-                    this.props.onEditChange(this.props.order.orderId, "orderStatus", this.state.status);
-                });
-            }else{
-                res.text().then(data => {
-                    console.log(data);
-                    let responseMessage = JSON.parse(data).message;
-                    this.setState({
-                        message: responseMessage
-                    })
-                })
-                
-            }
-        })
-        .catch(err => console.log(err));
-    }
-
-    handleEditChange = e => {
-        this.setState({
-            status: e.target.value
-        })
-        // this.props.onEditChange(this.props.order.orderId, e.target);
-    }
-
     render(){
         console.log(this.state)
-        let statuses = ['New', 'Preparing', 'Ready', 'Delivered', 'Cancel'];
         let itemDetails = this.state.menuItems.map(item => {
             return(
                 <div style = {{display:'flex'}}>
@@ -93,7 +41,7 @@ class Order extends Component {
         return(
             <div>
                 <h2 style= {{color:"red"}}>{this.state.message}</h2>
-                <label style = {{fontSize:'19px'}}>Order# {this.props.order.orderId}</label>
+                <label style = {{fontSize:'17px'}}>Order# {this.props.order.orderId}</label>
                 <h5 style = {{textDecoration:'underline'}}>Buyer Details</h5>
                 <div style = {{display:'flex'}}>
                     <label>Buyer Name:</label>
@@ -108,6 +56,10 @@ class Order extends Component {
                     <h7 style = {{paddingLeft:'5px'}}>{this.props.order.orderPrice}</h7>
                 </div>
                 <div style = {{display:'flex'}}>
+                    <label>Order Status:</label>
+                    <h7 style = {{paddingLeft:'5px'}}>{this.props.order.orderStatus}</h7>
+                </div>
+                {/* <div style = {{display:'flex'}}>
                     <div class="form-group">
                         <label>Status:</label>
                         <select style = {{display:'inline', width:'auto'}} class="form-control" name="orderStatus"
@@ -125,8 +77,8 @@ class Order extends Component {
                         </select>
                     </div>
                     <button onClick = {this.updateStatus}
-                    className="btn btn-primary btn-status-change">Change Status</button>
-                </div>
+                    className="btn btn-primary btn-status-change">Change Status</button> */}
+                {/* </div> */}
                 
                 <hr/>
             </div>
@@ -134,4 +86,4 @@ class Order extends Component {
     }
 }
 
-export default Order;
+export default OldOrder;

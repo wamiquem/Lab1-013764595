@@ -3,6 +3,7 @@ import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import { Link} from 'react-router-dom';
 import Navbar from '../Navbar';
+import backendURL from '../../urlconfig';
 
 class Checkout extends Component {
      constructor(props){
@@ -24,7 +25,7 @@ class Checkout extends Component {
     //get the first name of owner from backend  
     componentDidMount(){
         if(cookie.load('cookie')){
-            fetch('http://localhost:3101/buyer/address',{
+            fetch(`${backendURL}/buyer/address`,{
                 credentials: 'include'
              })
             .then(res => res.json())
@@ -52,7 +53,7 @@ class Checkout extends Component {
         //prevent page from refresh
         e.preventDefault();
         const data = this.state;
-        fetch('http://localhost:3101/buyer/updateAddress', {
+        fetch(`${backendURL}/buyer/updateAddress`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',
@@ -91,7 +92,7 @@ class Checkout extends Component {
             items: this.props.location.state.items,
             totalPrice: this.props.location.totalPrice
         }
-        fetch('http://localhost:3101/restaurant/placeOrder', {
+        fetch(`${backendURL}/restaurant/placeOrder`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',

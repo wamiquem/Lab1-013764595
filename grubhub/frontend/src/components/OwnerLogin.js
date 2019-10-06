@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import Navbar from './Navbar';
+import backendURL from '../urlconfig';
 
 //create the OwnerLogin Component
 class OwnerLogin extends Component {
@@ -51,7 +52,7 @@ class OwnerLogin extends Component {
             password : this.state.password
         }
 
-        fetch('http://localhost:3101/owner/login', {
+        fetch(`${backendURL}/owner/login`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',

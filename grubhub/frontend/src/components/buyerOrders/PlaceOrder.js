@@ -3,6 +3,7 @@ import Navbar from '../Navbar';
 import { Redirect, Link } from 'react-router-dom';
 import cookie from 'react-cookies';
 import Item from './Item'
+import backendURL from '../../urlconfig';
 
 class PlaceOrder extends Component {
      constructor(props){
@@ -23,7 +24,7 @@ class PlaceOrder extends Component {
     
     componentDidMount(){
         // if(cookie.load('cookie')){
-            fetch(`http://localhost:3101/restaurant/menuItems/${this.state.restId}`,{
+            fetch(`${backendURL}/restaurant/menuItems/${this.state.restId}`,{
                 credentials: 'include'
                 })
             .then(res => res.json())
@@ -34,7 +35,7 @@ class PlaceOrder extends Component {
             })
             .catch(err => console.log(err));
 
-            fetch(`http://localhost:3101/restaurant/sections/?restId=${this.state.restId}`,{
+            fetch(`${backendURL}/restaurant/sections/?restId=${this.state.restId}`,{
                 credentials: 'include'
                 })
             .then(res => res.json())

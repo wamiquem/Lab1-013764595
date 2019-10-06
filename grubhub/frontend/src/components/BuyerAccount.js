@@ -4,6 +4,7 @@ import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import Navbar from './Navbar';
 import BuyerProfile from './BuyerProfile';
+import backendURL from '../urlconfig';
 
 //create the Navbar Component
 class BuyerAccount extends Component {
@@ -24,7 +25,7 @@ class BuyerAccount extends Component {
 
     componentDidMount(){
         if(cookie.load('cookie')){
-            fetch('http://localhost:3101/buyer/details',{
+            fetch(`${backendURL}/buyer/details`,{
                 credentials: 'include'
              })
             .then(res => res.json())
@@ -42,7 +43,7 @@ class BuyerAccount extends Component {
             })
             .catch(err => console.log(err));
 
-            fetch('http://localhost:3101/buyer/profilePic',{
+            fetch(`${backendURL}/buyer/profilePic`,{
                 credentials: 'include'
             })
             .then(res => res.blob())

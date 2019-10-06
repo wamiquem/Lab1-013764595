@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Redirect} from 'react-router';
 import Navbar from './Navbar';
+import backendURL from '../urlconfig';
 
 //create the Owner Signup Component
 class OwnerSignup extends Component {
@@ -56,7 +57,7 @@ class OwnerSignup extends Component {
             phone: this.state.phone
         }
 
-        fetch('http://localhost:3101/owner/signup', {
+        fetch(`${backendURL}/owner/signup`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',

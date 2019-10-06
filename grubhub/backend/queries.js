@@ -1,4 +1,4 @@
-const con = require('./dbconnection');
+const con = require('./dbconnection_pool');
 
 var queries = {};
 
@@ -569,10 +569,10 @@ queries.createOrderDetails = (orderId, items, successcb, failurecb) => {
 }
 
 queries.getAllOrders = (owner_id, successcb, failurecb) => {
-    let sql = `SELECT o.order_id, b.fname, b.lname, b.unit_no, b.street, b.city, b.zip_code, o.status, o.price 
+    let sql = `SELECT o.order_id, b.fname, b.lname, o.buyer_address, o.status, o.price 
     FROM orders o, buyers b 
     WHERE o.buyer_id = b.id
-    AND o.owner_id = ?`;
+    AND o.owner_id = ? order by order_id desc` ;
     let values = [owner_id];
     
     con.query(sql, values, function (err, result){
@@ -610,6 +610,35 @@ queries.updateOrderStatus = (order, successcb, failurecb) => {
             failurecb(err);
             return;
         }
+        successcb(result);
+    });
+}
+
+queries.getAllMatchingRestaurants = (menuItem, successcb, failurecb) => {
+    console.log("Inside name", menuItem);
+    let sql = `SELECT r.id, r.name, street, city, state from restaurants r, menus m
+            WHERE r.id = m.rest_id
+            AND m.name like '%` + menuItem +  `%' `;
+    con.query(sql, function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        console.log("getAllMatchingRestaurants",result);
+        successcb(result);
+    });
+}
+
+
+queries.getRestaurantsByCuisine = (cuisine, successcb, failurecb) => {
+    let sql = `SELECT name, street, city, state from restaurants r
+    WHERE cuisine like '%` + cuisine +  `%' `;
+    con.query(sql, [cuisine], function (err, result){
+        if (err){
+            failurecb(err);
+            return;
+        }
+        console.log("getRestaurantsByCuisine",result);
         successcb(result);
     });
 }

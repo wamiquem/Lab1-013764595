@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import cookie from 'react-cookies';
 import MenuAddForm from './MenuAddForm';
 import MenusList from './MenusList';
+import backendURL from '../../urlconfig';
 
 class Menus extends Component {
     constructor(props){
@@ -59,7 +60,7 @@ class Menus extends Component {
     
     componentDidMount(){
         // if(cookie.load('cookie')){
-            fetch('http://localhost:3101/restaurant/menus',{
+            fetch(`${backendURL}/restaurant/menus`,{
                 credentials: 'include'
              })
             .then(res => res.json())
