@@ -15,7 +15,9 @@ class Checkout extends Component {
             state: "",
             zip: "",
             phone: "",
-            message: ""
+            message: "",
+            success: false,
+            orderId: ""
         }
         this.handleChange = this.handleChange.bind(this);
         this.updateBuyerDetails = this.updateBuyerDetails.bind(this);
@@ -92,7 +94,7 @@ class Checkout extends Component {
             items: this.props.location.state.items,
             totalPrice: this.props.location.totalPrice
         }
-        fetch(`${backendURL}/restaurant/placeOrder`, {
+        fetch(`${backendURL}/buyer/placeOrder`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json,  text/plain, */*',

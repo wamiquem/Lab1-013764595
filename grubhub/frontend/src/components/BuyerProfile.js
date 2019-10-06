@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import cookie from 'react-cookies';
 import backendURL from '../urlconfig';
 
 //create the Buyer Profile Component
@@ -14,13 +15,56 @@ class BuyerProfile extends Component {
         this.state = {
             message: "",
             isEditable:false,
-            isNewImage: false
+            isNewImage: false,
+            fname: "",
+            lname: "",
+            phone: "",
+            street: "",
+            unit: "",
+            city: "",
+            state: "",
+            zip: "",
+            imgURL: ""
+        }
+    }
+
+    componentDidMount(){
+        if(cookie.load('cookie')){
+            fetch(`${backendURL}/buyer/details`,{
+                credentials: 'include'
+             })
+            .then(res => res.json())
+            .then(data => {
+                this.setState({
+                    fname: data.firstName,
+                    lname: data.lastName,
+                    phone: data.phone,
+                    street: data.street,
+                    unit: data.unit,
+                    city: data.city,
+                    state: data.state,
+                    zip: data.zip
+                });
+            })
+            .catch(err => console.log(err));
+
+            fetch(`${backendURL}/buyer/profilePic`,{
+                credentials: 'include'
+            })
+            .then(res => res.blob())
+            .then(resAsBlob => {
+                this.setState({
+                    imgURL: URL.createObjectURL(resAsBlob)
+                });
+            })
         }
     }
     
     //input change handler to update state variable with the text entered by the user
     handleChange(e) {
-        this.props.onChange(e.target);
+        this.setState({
+            [e.target.name] : e.target.value
+        })
     }
 
     editProfile = () => {
@@ -48,11 +92,6 @@ class BuyerProfile extends Component {
         e.preventDefault();
         const formData = new FormData();
         formData.append('image', document.querySelector('input[type="file"]').files[0]);
-        const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        };
         
         fetch(`${backendURL}/upload/buyer-profile-image`, {
             method: 'POST',
@@ -81,10 +120,8 @@ class BuyerProfile extends Component {
     }
 
     updateProfile = (e) => {
-        var headers = new Headers();
-        //prevent page from refresh
         e.preventDefault();
-        const data = this.props.buyerDetails;
+        const data = this.state;
         fetch(`${backendURL}/buyer/updateProfile`, {
             method: "POST",
             headers: {
@@ -122,7 +159,8 @@ class BuyerProfile extends Component {
         let profileUpdate = null;
         
         if(this.state.isEditable){
-            imageEdit = (<div>
+            imageEdit = (
+            <div>
                 <form>
                     <div class="form-group user-image">
                         <input className = "upload-image" type="file" id="upload" onChange= {this.handleFileUpload}/>
@@ -131,14 +169,14 @@ class BuyerProfile extends Component {
                         </button>
                     </div>
                 </form>
-            </div>);
+            </div>
+            );
             
             profileUpdate = (
                 <div className = "btn-toolbar">
                     <button onClick = {this.updateProfile} className="btn btn-success">Update</button>
                     <button onClick = {this.cancelEdit} className="btn btn-danger">Cancel</button>
-                </div>
-                
+                </div>    
             );
         }else{
             profileEdit = (
@@ -163,57 +201,57 @@ class BuyerProfile extends Component {
                             <div class = "profile-image">
                                 <label>Image</label>
                                 <img className="rounded float-left img-thumbnail" id="pic" 
-                                src={this.props.buyerDetails.imgURL} alt="Responsive image"></img>
+                                src={this.state.imgURL} alt="Responsive image"></img>
                             </div>
                             {imageEdit}
                             <div className="form-group form-inline">
                                 <label >First Name</label>
                                 <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="fname" placeholder="First Name"
-                                value = {this.props.buyerDetails.fname}/>
+                                value = {this.state.fname}/>
                             
                             </div>
                             <div className="form-group form-inline">
                                 <label >Last Name</label>
                                 <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="lname" placeholder="Last Name"
-                                value = {this.props.buyerDetails.lname}/>
+                                value = {this.state.lname}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Phone</label>
                                 <input  disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="number" className="form-control" name="phone" placeholder="Phone"
-                                value = {this.props.buyerDetails.phone}/>
+                                value = {this.state.phone}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Street</label>
                                 <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="street" placeholder="Street"
-                                value = {this.props.buyerDetails.street}/>
+                                value = {this.state.street}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Unit</label>
                                 <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="unit" placeholder="Unit"
-                                value = {this.props.buyerDetails.unit}/>
+                                value = {this.state.unit}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >City</label>
                                 <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="city" placeholder="City"
-                                value = {this.props.buyerDetails.city}/>
+                                value = {this.state.city}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >State</label>
                                 <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="state" placeholder="State"
-                                value = {this.props.buyerDetails.state}/>
+                                value = {this.state.state}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Zip</label>
                                 <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="zip" placeholder="Zip"
-                                value = {this.props.buyerDetails.zip}/>
+                                value = {this.state.zip}/>
                             </div>
                                 {profileUpdate}   
                                 {profileEdit}          

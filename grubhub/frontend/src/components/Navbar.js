@@ -25,7 +25,7 @@ class Navbar extends Component {
         let navCart = null;
         if(cookie.load('cookie')){
             if(localStorage.getItem('userType') === 'buyer'){
-                navAccount = <li><Link to="/buyer/account">Account</Link></li>;
+                navAccount = <li><Link to="/buyer/account/profile">Account</Link></li>;
                 navCart = <li><Link to="/buyer/cart">Cart</Link></li>;
             }else{
                 navAccount = <li><Link to="/owner/account/profile">Account</Link></li>;

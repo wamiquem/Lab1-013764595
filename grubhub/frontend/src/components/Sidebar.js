@@ -11,7 +11,7 @@ class Sidebar extends Component {
         let menuOptions = this.props.options.map(option => {
             return(
                 <li>
-                    <Link to={`/owner/${this.props.module}/${option.toLowerCase()}`}>{option}</Link>
+                    <Link to={`/${this.props.user}/${this.props.module}/${option.toLowerCase()}`}>{option}</Link>
                 </li>
             )
         })

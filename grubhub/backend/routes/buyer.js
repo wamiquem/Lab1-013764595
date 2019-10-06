@@ -235,4 +235,27 @@ router.get('/filterRestaurants',function(req,res){
     })
 });
 
+router.post('/placeOrder',function(req,res){
+    console.log("Inside Buyer Place Order Post Request");
+    console.log("Req Body : ",req.body);
+    
+    queries.getOwnerIdByRestaurantId(req.body.restId, result => {
+        const order = {
+            buyerId: req.cookies.cookie.id, buyerAddress: req.body.buyerAddress, restId: req.body.restId,
+            ownerId: result.owner_id, price: req.body.totalPrice
+        }
+        queries.createOrder(order, row => { 
+            queries.createOrderDetails(row.insertId, req.body.items, sqlresult => {
+                res.status(200).send({success: true, message:'Order Created', orderId: sqlresult.insertId});
+            }, err => {
+                res.status(500).send({ message: `Something failed when creating order details. ${err.message}`});
+            });
+        }, err => {
+            res.status(500).send({ message: `Something failed when creating order. ${err.message}`});
+        });
+    }, err=> {
+        res.status(500).send({ message: `Something failed when getting owner id from the table. ${err.message}`});
+    });
+});
+
 module.exports = router;

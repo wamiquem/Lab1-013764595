@@ -109,14 +109,12 @@ class OwnerProfile extends Component {
                 });
             }
         })
+        .catch(err => console.log(err));
     }
 
     updateProfile = (e) => {
-        var headers = new Headers();
-        //prevent page from refresh
         e.preventDefault();
         const data = this.state;
-        console.log(data)
         fetch(`${backendURL}/owner/updateProfile`, {
             method: "POST",
             headers: {
@@ -170,7 +168,7 @@ class OwnerProfile extends Component {
             profileUpdate = (
                 <div className = "btn-toolbar">
                     <button onClick = {this.updateProfile} className="btn btn-success">Update</button>
-                    <button onClick = {this.cancelEdit} className="btn btn-danger">X Cancel</button>
+                    <button onClick = {this.cancelEdit} className="btn btn-danger">Cancel</button>
                 </div>
             );
         }else{
@@ -179,7 +177,8 @@ class OwnerProfile extends Component {
                     <button onClick = {this.editProfile} className="btn btn-primary">Edit</button>
                 </div>
             );
-        }          
+        }    
+
         return(
             <div>
                 

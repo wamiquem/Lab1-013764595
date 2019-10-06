@@ -1,9 +1,8 @@
 import React,{Component} from 'react';
-import { Switch, Route ,Link} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import Navbar from './Navbar';
-import OwnerSignup from './OwnerSignup';
 import Sidebar from './Sidebar';
 import OwnerProfile from './OwnerProfile';
 
@@ -19,7 +18,7 @@ class OwnerAccount extends Component {
             <div >
                 {redirectVar}
                 <Navbar/>
-                <Sidebar options = {['Profile']} module = {'account'}/>
+                <Sidebar user = {'owner'} options = {['Profile']} module = {'account'}/>
                 <div >
                   <Switch>
                       <Route path="/owner/account/profile" component={OwnerProfile}/>

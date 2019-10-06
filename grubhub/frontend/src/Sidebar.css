@@ -13,3 +13,9 @@
   .navbar-fixed-left + .container{
     padding-left: 160px;
   }
+
+  .nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 10px;
+  }

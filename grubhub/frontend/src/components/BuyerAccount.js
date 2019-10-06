@@ -1,59 +1,12 @@
 import React,{Component} from 'react';
-import {Link} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import Navbar from './Navbar';
+import Sidebar from './Sidebar';
 import BuyerProfile from './BuyerProfile';
-import backendURL from '../urlconfig';
 
-//create the Navbar Component
 class BuyerAccount extends Component {
-     //call the constructor method
-     constructor(props){
-        //Call the constrictor of Super class i.e The Component
-        super(props);
-        this.state = {
-            
-        }
-        // this.handleUpdate = this.handleUpdate.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e) {
-        this.setState({ [e.name]: e.value });
-    }
-
-    componentDidMount(){
-        if(cookie.load('cookie')){
-            fetch(`${backendURL}/buyer/details`,{
-                credentials: 'include'
-             })
-            .then(res => res.json())
-            .then(data => {
-                this.setState({
-                    fname: data.firstName,
-                    lname: data.lastName,
-                    phone: data.phone,
-                    street: data.street,
-                    unit: data.unit,
-                    city: data.city,
-                    state: data.state,
-                    zip: data.zip
-                });
-            })
-            .catch(err => console.log(err));
-
-            fetch(`${backendURL}/buyer/profilePic`,{
-                credentials: 'include'
-            })
-            .then(res => res.blob())
-            .then(resAsBlob => {
-                this.setState({
-                    imgURL: URL.createObjectURL(resAsBlob)
-                });
-            })
-        }
-    }
 
     render(){
         //if Cookie is set render Buyer Home Page
@@ -64,8 +17,19 @@ class BuyerAccount extends Component {
         return(
             <div>
                 {redirectVar}
-                <Navbar firstName = {this.state.fname}/>
-                <BuyerProfile buyerDetails = {this.state} onChange={this.handleChange}/>
+                <Navbar/>
+                <Sidebar user = {'buyer'} options = {['Profile', 'Past Orders', 'Upcoming Orders']} module = {'account'}/>
+                <div >
+                  <Switch>
+                      <Route path="/buyer/account/profile" component={BuyerProfile}/>
+                      {/* <Route path="/buyer/account/past-orders" component={Section}/>
+                      <Route path="/buyer/account/upcoming-orders" component={Section}/> */}
+                      {/* <Route path = {match.url} component={OwnerLogin}/>
+                      <Route path = {match.url} component={OwnerHome}/>
+                      <Route path = {match.url} component={OwnerSignup}/>
+                      <Route path = {match.url} component={OwnerAccount}/> */}
+                  </Switch>
+                </div>
             </div>
         )
     }

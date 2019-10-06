@@ -19,12 +19,13 @@ class Buyer extends React.Component{
                     <Route path="/buyer/login" component={BuyerLogin}/>
                     <Route path="/buyer/home" component={BuyerHome}/>
                     <Route path="/buyer/signup" component={BuyerSignup}/>
-                    <Route path="/buyer/account" component={BuyerAccount}/>
+                    <Route path="/buyer/account/:id" component={BuyerAccount}/>
                     <Route path="/buyer/search/:menuItem" component={BuyerSearch}/>
                     <Route path="/buyer/search/" component={BuyerSearch}/>
                     <Route path="/buyer/place-order/:restId" component={PlaceOrder}/>
                     <Route path="/buyer/cart" component={Cart}/>
                     <Route path="/buyer/checkout" component={Checkout}/>
+                    <Route path="/buyer/order-success" component={Checkout}/>
                     {/* <Route path = {match.url} component={BuyerLogin}/>
                     <Route path = {match.url} component={BuyerHome}/>
                     <Route path = {match.url} component={BuyerSignup}/>
