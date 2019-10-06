@@ -20,7 +20,7 @@ class Restaurant extends Component {
                 {redirectVar}
                 <Navbar/>
                 <div>
-                    <Sidebar options = {['Profile', 'Sections', 'Menu']} module={'restaurant'}/>
+                    <Sidebar user = {'owner'} options = {['Profile', 'Sections', 'Menu']} module={'restaurant'}/>
                     <div className = "right-side-area">
                         <Switch>
                         {/* <Route path="/owner/restaurant/profile" component={RestaurantProfile}/> */}
