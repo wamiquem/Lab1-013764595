@@ -29,25 +29,19 @@ class MenusList extends Component {
                                             <div>
                                                 <h4 style = {{textDecoration: 'underline'}}>{section.name}</h4>
                                                 {
-                                                this.props.menus.filter(menu => menu.section_id === section.id)
-                                                .map(menu => {
-                                                    return <Menu menu = {menu} sections = {this.props.sections}
-                                                    onDelete = {this.handleDelete}
-                                                    onEditChange = {this.handleEditChange}/>
-                                                })
+                                                this.props.menus ?
+                                                    this.props.menus.filter(menu => menu.section_id === section.id)
+                                                    .map(menu => {
+                                                        return <Menu menu = {menu} sections = {this.props.sections}
+                                                        onDelete = {this.handleDelete}
+                                                        onEditChange = {this.handleEditChange}/>
+                                                    })
+                                                :
+                                                <span/>
                                                 }
                                             </div>
                                         )
                                     })    
-
-
-
-                                    // this.props.menus.map(menu => {
-                                    //     return <Menu menu = {menu} sections = {this.props.sections}
-                                    //     onDelete = {this.handleDelete}
-                                    //     onEditChange = {this.handleEditChange}/>
-                                    // })
-
                                 }
                             </div>
                         </div>

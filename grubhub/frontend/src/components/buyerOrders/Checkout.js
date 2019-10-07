@@ -172,7 +172,7 @@ class Checkout extends Component {
                                     </div>
                                     <div className="form-group" style = {{paddingRight:'30px'}}>
                                         <input type="text" className="form-control" name="phone" placeholder="Phone"
-                                        onChange = {this.handleChange} value = {this.state.zip}/>
+                                        onChange = {this.handleChange} value = {this.state.phone}/>
                                     </div>
                                 </div>
                                 <button onClick = {this.updateBuyerDetails} className="btn btn-primary btn-sm">Update Address and Phone</button><hr/>

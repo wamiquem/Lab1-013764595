@@ -9,11 +9,6 @@ var con = mysql.createPool({
     database : 'grubhub_db',
   });
 
-// con.connect(function(err) {
-//     if (err) throw err;
-//     console.log("Connected!");
-// });
-
 con.getConnection(function(err) {
     if (err) throw err;
     console.log("Connected Pooling!");

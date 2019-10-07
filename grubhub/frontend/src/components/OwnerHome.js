@@ -39,7 +39,9 @@ class OwnerHome extends Component {
     render(){
         const oldOrders = [];
         const newOrders =[];
-        this.state.orders.forEach(order => (order.orderStatus === 'Delivered' ? oldOrders : newOrders).push(order));
+        if (this.state.orders) {
+            this.state.orders.forEach(order => (order.orderStatus === 'Delivered' ? oldOrders : newOrders).push(order));
+        }
         let redirectVar = null;
         let fname = this.props.location.fname;
         if(!fname){

@@ -13,9 +13,11 @@ router.post('/signup',function(req,res){
         queries.createBuyer(buyer,hash, result => {
             console.log("Number of records inserted: " + result.affectedRows);
             res.status(200).send({success: true, message:'Buyer created'});
+            console.log("Response Status", res.statusCode);
         }, err => {
             if(err.code === 'ER_DUP_ENTRY'){
                 res.status(401).send({ success: false, message: 'Email already exists. Plz sign up with a different email id' });
+                console.log("Response Status", res.statusCode);
             }else{
                 res.status(500).send({ success: false, message: `Something failed when inserting record. ${err.message}`});
             }
@@ -36,7 +38,7 @@ router.post('/login',function(req,res){
         if(row){
             encrypt.confirmPassword(password,row.password, result => {
                 if (result){
-                    res.cookie('cookie',{id: row.id},{maxAge: 900000, httpOnly: false, path : '/'});
+                    res.cookie('cookie',{id: row.id},{maxAge: 3600000, httpOnly: false, path : '/'});
                     req.session.user = email;
                     res.status(200).json({success: true, message: "Buyer Login successful", id: row.id, firstName: row.fname});
                     console.log("Response Status", res.statusCode);
@@ -215,14 +217,12 @@ router.get('/profilePic',function(req,res){
 });
 
 router.get('/searchRestaurants',function(req,res){
-    console.log("req",req);
-
     const name = (req.query.menuItem) ? req.query.menuItem : "";
-    console.log("name",name);
+    console.log("Request Query Parameter(Item Name): ",name);
     queries.getAllMatchingRestaurants(name, row => {
-        console.log("row",row);
-
+        console.log("Records",row);
         res.status(200).json({success1: true, row});
+        console.log("Response Status", res.statusCode);
     }, err => {
         res.status(500).json({success: false, message: `Something wrong while getting restaurants ${err}`});
     })

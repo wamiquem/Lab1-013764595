@@ -25,11 +25,14 @@ class SectionsList extends Component {
                             <div className="panel">
                                 <h4>Sections</h4>
                                 {
-                                    this.props.sections.map(section => {
-                                        return <Section section = {section}
-                                        onDelete = {this.handleDelete}
-                                        onEditChange = {this.handleEditChange}/>
-                                    })
+                                    this.props.sections ? 
+                                        this.props.sections.map(section => {
+                                            return <Section section = {section}
+                                            onDelete = {this.handleDelete}
+                                            onEditChange = {this.handleEditChange}/>
+                                        })
+                                    :
+                                    <span/>
                                 }
                                 
                             </div>

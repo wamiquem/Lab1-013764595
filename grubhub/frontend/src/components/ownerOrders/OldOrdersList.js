@@ -15,10 +15,11 @@ class OldOrdersList extends Component {
                             <div className="panel">
                                 <h4>Old Orders</h4>
                                 {
-                                    this.props.orders.map(order => {
-                                        return <OldOrder order = {order}/>
-                                    })
-
+                                    this.props.orders ? 
+                                        this.props.orders.map(order => {
+                                            return <OldOrder order = {order}/>
+                                        })
+                                    : <span/>
                                 }
                             </div>
                         </div>

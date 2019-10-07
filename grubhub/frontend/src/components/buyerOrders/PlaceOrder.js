@@ -81,13 +81,16 @@ class PlaceOrder extends Component {
     render(){
         console.log("this.state.iscartempt", this.state.isCartEmpty);
         let redirectVar = null;
+        let fname = null;
         if(!cookie.load('cookie')){
             redirectVar = <Redirect to= "/buyer/login"/>
-        }
+        } else {
+            fname = localStorage.getItem('fname');
+          }
         return(
             <div>
                 {redirectVar}
-                <Navbar/>
+                <Navbar firstName = {fname}/>
                     <div className="order-item-list">
                         <div className="main-div">
                             <h4>Select Items</h4>

@@ -114,7 +114,7 @@ class OwnerSignup extends Component {
             <div>
                 {redirectVar}
 
-                {/* <Navbar/> */}
+                <Navbar/>
                 
                 <div className="container">
                     

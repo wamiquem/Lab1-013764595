@@ -557,18 +557,7 @@ queries.createOrder = (order, successcb, failurecb) => {
     });
 }
 
-queries.createOrderDetails = (orderId, items, successcb, failurecb) => {
-    // const items = [
-            //     {name: 'alpha', description: 'describes alpha', value: 1},
-            //     ...
-            // ];
-            
-            // db.query(
-            //     'INSERT INTO my_table (name, description, value) VALUES ?',
-            //     [items.map(item => [item.name, item.description, item.value])],
-            //     (error, results) => {...}
-            // );
-    
+queries.createOrderDetails = (orderId, items, successcb, failurecb) => {    
     let sql = `INSERT INTO order_details
     (order_id, menu_id, quantity, price) 
     VALUES ?`;

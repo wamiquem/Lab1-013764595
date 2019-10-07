@@ -19,10 +19,11 @@ class NewOrdersList extends Component {
                                     className="btn btn-primary btn-status-change">Refresh</button>
                                 </div>
                                 {
+                                    this.props.orders ?
                                     this.props.orders.map(order => {
                                         return <NewOrder order = {order}/>
                                     })
-
+                                    : <span/>
                                 }
                             </div>
                         </div>

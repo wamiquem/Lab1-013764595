@@ -25,7 +25,6 @@ class Buyer extends React.Component{
                     <Route path="/buyer/place-order/:restId" component={PlaceOrder}/>
                     <Route path="/buyer/cart" component={Cart}/>
                     <Route path="/buyer/checkout" component={Checkout}/>
-                    <Route path="/buyer/order-success" component={Checkout}/>
                     {/* <Route path = {match.url} component={BuyerLogin}/>
                     <Route path = {match.url} component={BuyerHome}/>
                     <Route path = {match.url} component={BuyerSignup}/>

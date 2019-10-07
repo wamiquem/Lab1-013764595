@@ -36,7 +36,7 @@ router.post('/login',function(req,res){
         if(row){
             encrypt.confirmPassword(password,row.password, result => {
                 if (result){
-                    res.cookie('cookie',{id: row.id},{maxAge: 900000, httpOnly: false, path : '/'});
+                    res.cookie('cookie',{id: row.id},{maxAge: 3600000, httpOnly: false, path : '/'});
                     req.session.user = email;
                     res.status(200).json({success: true, message: "Owner Login successful", id: row.id, firstName: row.fname});
                 }else{

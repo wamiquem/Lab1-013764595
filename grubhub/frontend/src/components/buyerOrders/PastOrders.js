@@ -49,9 +49,12 @@ class PastOrders extends Component {
                                     className="btn btn-primary btn-status-change">Refresh</button>
                                 </div>
                                 {
+                                    this.state.orders ? 
                                     this.state.orders.map(order => {
                                         return <Order order = {order}/>
                                     })
+                                    :
+                                    <span/>
                                 }
                             </div>
                         </div>
