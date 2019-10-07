@@ -21,21 +21,7 @@ class BuyerHome extends Component {
         this.changeHandler = this.changeHandler.bind(this);
     }
 
-    //get the first name of buyer from backend  
-    componentDidMount(){
-            if(cookie.load('cookie')){
-            fetch(`${backendURL}/buyer/firstName`,{
-            credentials: 'include'
-            })
-            .then(res => res.json())
-            .then(data => {
-                this.setState({
-                    firstName: data.firstName
-                })
-            })
-            .catch(err => console.log(err));
-        }
-    }
+    //get the first name of buyer from backend 
 
     changeHandler = (e) => {
         this.setState({
@@ -46,6 +32,10 @@ class BuyerHome extends Component {
     render(){
         const isRestaurants = this.state.restaurants;
         let redirectVar = null;
+        let fname = this.props.location.fname;
+        if(!fname){
+            fname = localStorage.getItem('fname');
+        }
         if(!cookie.load('cookie')){
             redirectVar = <Redirect to= "/"/>
         }
@@ -53,7 +43,7 @@ class BuyerHome extends Component {
             <div>
                 {redirectVar}
 
-                <Navbar firstName = {this.state.firstName} />
+                <Navbar firstName = {fname} />
                 <div className="container-fluid">
                     <div>
                         <img src={food} width="100%" height="670px" alt="Responsive image"/>

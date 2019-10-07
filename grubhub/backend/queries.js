@@ -15,7 +15,7 @@ queries.createBuyer = (buyer, hash, successcb, failurecb) => {
 }
 
 queries.getBuyerPasswordByEmail = (email, successcb, failurecb) => {
-    let sql = 'SELECT password, id FROM buyers WHERE email = ?';
+    let sql = 'SELECT password,fname,id FROM buyers WHERE email = ?';
     con.query(sql, [email], function (err, row){
         if (err){
             failurecb(err);
@@ -186,7 +186,7 @@ queries.createOwner = (owner, hash, successcb, failurecb) => {
 }
 
 queries.getOwnerPasswordByEmail = (email, successcb, failurecb) => {
-    let sql = 'SELECT password, id FROM owners WHERE email = ?';
+    let sql = 'SELECT password, id, fname FROM owners WHERE email = ?';
     con.query(sql, [email], function (err, row){
         if (err){
             failurecb(err);

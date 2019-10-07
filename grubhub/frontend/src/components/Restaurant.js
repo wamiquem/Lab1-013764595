@@ -13,13 +13,16 @@ class Restaurant extends Component {
 
     render(){
       let redirectVar = null;
+      let fname = null;
       if(!cookie.load('cookie')){
-                redirectVar = <Redirect to= "/owner/login"/>
+        redirectVar = <Redirect to= "/owner/login"/>
+      } else {
+        fname = localStorage.getItem('fname')
       }
         return(
             <div >
                 {redirectVar}
-                <Navbar/>
+                <Navbar firstName = {fname}/>
                 <div>
                     <Sidebar user = {'owner'} options = {['Profile', 'Sections', 'Menu']} module={'restaurant'}/>
                     <div className = "right-side-area">

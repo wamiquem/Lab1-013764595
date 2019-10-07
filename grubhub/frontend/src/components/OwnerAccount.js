@@ -11,26 +11,29 @@ class OwnerAccount extends Component {
 
     render(){
       let redirectVar = null;
+      let fname = null;
       if(!cookie.load('cookie')){
-                redirectVar = <Redirect to= "/owner/login"/>
+        redirectVar = <Redirect to= "/owner/login"/>
+      } else {
+        fname = localStorage.getItem('fname');
       }
-        return(
+    return(
+        <div >
+            {redirectVar}
+            <Navbar firstName = {fname}/>
+            <Sidebar user = {'owner'} options = {['Profile']} module = {'account'}/>
             <div >
-                {redirectVar}
-                <Navbar/>
-                <Sidebar user = {'owner'} options = {['Profile']} module = {'account'}/>
-                <div >
-                  <Switch>
-                      <Route path="/owner/account/profile" component={OwnerProfile}/>
-                      {/* <Route path="/owner/account/sections" component={Section}/> */}
+                <Switch>
+                    <Route path="/owner/account/profile" component={OwnerProfile}/>
+                    {/* <Route path="/owner/account/sections" component={Section}/> */}
 
-                      {/* <Route path = {match.url} component={OwnerLogin}/>
-                      <Route path = {match.url} component={OwnerHome}/>
-                      <Route path = {match.url} component={OwnerSignup}/>
-                      <Route path = {match.url} component={OwnerAccount}/> */}
-                  </Switch>
-                </div>
+                    {/* <Route path = {match.url} component={OwnerLogin}/>
+                    <Route path = {match.url} component={OwnerHome}/>
+                    <Route path = {match.url} component={OwnerSignup}/>
+                    <Route path = {match.url} component={OwnerAccount}/> */}
+                </Switch>
             </div>
+        </div>
         )
     }
 }

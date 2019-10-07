@@ -29,18 +29,8 @@ class BuyerSearch extends Component {
     //get the first name of buyer from backend  
     componentDidMount(){
             if(cookie.load('cookie')){
-            fetch(`${backendURL}/buyer/firstName`,{
-            credentials: 'include'
-            })
-            .then(res => res.json())
-            .then(data => {
-                this.setState({
-                    firstName: data.firstName
-                })
-            })
-            .catch(err => console.log(err));
-            this.state.menuItem = (this.state.menuItem) ? this.state.menuItem : "";
-            this.searchRestaurants();
+                this.state.menuItem = (this.state.menuItem) ? this.state.menuItem : "";
+                this.searchRestaurants();
         }
     }
 
@@ -87,8 +77,11 @@ class BuyerSearch extends Component {
         const result = [];
         const map = new Map();
         let redirectVar = null;
+        let fname = null;
         if(!cookie.load('cookie')){
             redirectVar = <Redirect to= "/"/>
+        } else {
+            fname = localStorage.getItem('fname')
         }
         return(
             <div>
@@ -108,7 +101,7 @@ class BuyerSearch extends Component {
                     })
                     : <span/>
                 }
-                <Navbar firstName = {this.state.firstName} />
+                <Navbar firstName = {fname} />
                 <div>
                 <div className="container">
                     <div className="owner-order-list">

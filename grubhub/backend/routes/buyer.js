@@ -38,16 +38,18 @@ router.post('/login',function(req,res){
                 if (result){
                     res.cookie('cookie',{id: row.id},{maxAge: 900000, httpOnly: false, path : '/'});
                     req.session.user = email;
-                    res.status(200).json({success: true, message: "Buyer Login successful", id: row.id});
+                    res.status(200).json({success: true, message: "Buyer Login successful", id: row.id, firstName: row.fname});
                     console.log("Response Status", res.statusCode);
                 }else{
                     res.status(401).json({success: false, message: "Incorrect Password"});
+                    console.log("Response Status", res.statusCode);
                 }
             }, err => {
                 res.status(500).json({success: false, message: "Something wrong with bcrypt"});
             });
         }else{
             res.status(401).json({success: false, message: "Email does not exists. Please try again"});
+            console.log("Response Status", res.statusCode);
         }
     }, err => {
         res.status(500).json({success: false, message: "Something wrong when reading the record"});

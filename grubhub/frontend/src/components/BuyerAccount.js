@@ -13,13 +13,16 @@ class BuyerAccount extends Component {
     render(){
         //if Cookie is set render Buyer Home Page
         let redirectVar = null;
+        let fname = null;
         if(!cookie.load('cookie')){
             redirectVar = <Redirect to= "/buyer/login"/>
+        } else {
+            fname = localStorage.getItem('fname')
         }
         return(
             <div>
                 {redirectVar}
-                <Navbar/>
+                <Navbar firstName = {fname}/>
                 <Sidebar user = {'buyer'} options = {['Profile', 'Past Orders', 'Upcoming Orders']} module = {'account'}/>
                 <div >
                   <Switch>

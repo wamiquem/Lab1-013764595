@@ -22,17 +22,6 @@ class OwnerHome extends Component {
     //get the first name of owner from backend  
     componentDidMount(){
         if(cookie.load('cookie')){
-            fetch(`${backendURL}/owner/firstName`,{
-            credentials: 'include'
-            })
-            .then(res => res.json())
-            .then(data => {
-                this.setState({
-                    firstName: data.firstName
-                })
-            })
-            .catch(err => console.log(err));
-
             fetch(`${backendURL}/restaurant/allOrders`,{
             credentials: 'include'
             })
@@ -52,13 +41,17 @@ class OwnerHome extends Component {
         const newOrders =[];
         this.state.orders.forEach(order => (order.orderStatus === 'Delivered' ? oldOrders : newOrders).push(order));
         let redirectVar = null;
+        let fname = this.props.location.fname;
+        if(!fname){
+            fname = localStorage.getItem('fname');
+        }
         if(!cookie.load('cookie')){
             redirectVar = <Redirect to= "/"/>
         }
         return(
             <div>
                 {redirectVar}
-                <Navbar firstName = {this.state.firstName} />
+                <Navbar firstName = {fname} />
                 <NewOrdersList orders = {newOrders}/>
                 <OldOrdersList orders = {oldOrders}/>
             </div>

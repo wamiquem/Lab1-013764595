@@ -17,6 +17,7 @@ class BuyerLogin extends Component {
             password : "",
             authFlag : false,
             message: "",
+            fname: ""
         }
         //Bind the handlers to this class
         this.emailChangeHandler = this.emailChangeHandler.bind(this);
@@ -63,13 +64,15 @@ class BuyerLogin extends Component {
         })
         .then(res => {
             if(res.status === 200){
-                this.setState({
-                    authFlag : true
-                });
                 localStorage.setItem('userType','buyer');
                 res.text().then(data => {
                     console.log(data);
+                    this.setState({
+                        authFlag : true,
+                        fname: JSON.parse(data).firstName
+                    });
                     localStorage.setItem('id',JSON.parse(data).id);
+                    localStorage.setItem('fname',JSON.parse(data).firstName);
                 });
             }else{
                 res.text().then(data => {
@@ -89,7 +92,7 @@ class BuyerLogin extends Component {
         //if Cookie is set render Buyer Home Page
         let redirectVar = null;
         if(cookie.load('cookie')){
-            redirectVar = <Redirect to= "/buyer/home"/>
+            redirectVar = <Redirect to= {{ pathname: "/buyer/home", fname: this.state.fname}}/>
         }
         return(
             <div>

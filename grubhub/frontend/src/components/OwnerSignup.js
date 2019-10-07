@@ -149,8 +149,8 @@ class OwnerSignup extends Component {
                             </div>
                             <button onClick = {this.submitSignup} className="btn btn-primary">Create Account</button>                 
                         </div>
+                        <p>Have Account? <Link to="/owner/login" >Login</Link></p>
                     </div>
-                    <p>Have Account? <Link to="/owner/login" >Login</Link></p>
                 </div>
             </div>
             

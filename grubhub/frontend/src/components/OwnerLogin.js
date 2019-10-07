@@ -63,13 +63,15 @@ class OwnerLogin extends Component {
         })
         .then(res => {
             if(res.status === 200){
-                this.setState({
-                    authFlag : true
-                });
                 localStorage.setItem('userType','owner');
                 res.text().then(data => {
                     console.log(data);
+                    this.setState({
+                        authFlag : true,
+                        fname: JSON.parse(data).firstName
+                    });
                     localStorage.setItem('id',JSON.parse(data).id);
+                    localStorage.setItem('fname',JSON.parse(data).firstName);
                 });
             }else{
                 res.text().then(data => {
@@ -89,7 +91,7 @@ class OwnerLogin extends Component {
         //if Cookie is set render Owner Home Page
         let redirectVar = null;
         if(cookie.load('cookie')){
-            redirectVar = <Redirect to= "/owner/home"/>
+            redirectVar = <Redirect to= {{ pathname: "/owner/home", fname: this.state.fname}}/>
         }
         return(
             <div>
@@ -113,10 +115,10 @@ class OwnerLogin extends Component {
                             <div className="form-group">
                                 <input onChange = {this.passwordChangeHandler} type="password" className="form-control" name="password" placeholder="Password"/>
                             </div>
-                            <button onClick = {this.submitLogin} className="btn btn-primary">Login</button>                 
+                            <button onClick = {this.submitLogin} className="btn btn-primary">Login</button>    
+                            <p><Link to="/owner/signup">Create Account</Link></p>             
                         </div>
                     </div>
-                    <p><Link to="/owner/signup">Create Account</Link></p>
                 </div>
             </div>
             
