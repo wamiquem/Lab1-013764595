@@ -136,6 +136,7 @@ class MenuAddForm extends Component {
         return(
             <div>
                 <div className="container">
+                <form onSubmit = {this.submitAdd} >
                     <div className="add-menu-form">
                         <div className="main-div">
                             <div className="panel">
@@ -153,9 +154,9 @@ class MenuAddForm extends Component {
                                     </div>
                                     <div>
                                         <div style={{display:'flex', paddingBottom:'10px', paddingLeft:'100px'}}>
-                                            <input type="text" class="form-control name-input" onChange = {this.changeHandler}
+                                            <input required type="text" class="form-control name-input" onChange = {this.changeHandler}
                                             name="name" placeholder="Name"/>
-                                            <input type="text" class="form-control price-input" onChange = {this.changeHandler}
+                                            <input required type="text" class="form-control price-input" onChange = {this.changeHandler}
                                             name="price" placeholder="Price"/>
                                         </div>
                                         <div style={{display:'flex', paddingBottom:'10px', paddingLeft:'100px'}}>
@@ -172,11 +173,12 @@ class MenuAddForm extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <button style={{marginLeft:'300px', width:'80px'}} onClick = {this.submitAdd} className="btn btn-primary">Add</button> 
+                                <button style={{marginLeft:'300px', width:'80px'}} type = "submit" className="btn btn-primary">Add</button> 
                                 
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
             

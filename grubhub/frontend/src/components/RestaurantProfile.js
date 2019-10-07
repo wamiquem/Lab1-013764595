@@ -173,7 +173,7 @@ class RestaurantProfile extends Component {
             
             profileUpdate = (
                 <div className = "btn-toolbar">
-                    <button onClick = {this.updateProfile} className="btn btn-success">Update</button>
+                    <button type = "submit" className="btn btn-success">Update</button>
                     <button onClick = {this.cancelEdit} className="btn btn-danger">Cancel</button>
                 </div>    
             );
@@ -189,7 +189,7 @@ class RestaurantProfile extends Component {
             <div>
                 
                 <div className="container">
-                    
+                    <form onSubmit = {this.updateProfile}>
                     <div className="profile-form">
                         <div className="main-div">
                             <div className="panel">
@@ -205,43 +205,43 @@ class RestaurantProfile extends Component {
                             {imageEdit}
                             <div className="form-group form-inline">
                                 <label >Name</label>
-                                <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
+                                <input required disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="name" placeholder="Name"
                                 value = {this.state.name}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Phone</label>
-                                <input  disabled={!this.state.isEditable} onChange = {this.handleChange} 
-                                type="number" className="form-control" name="phone" placeholder="Phone"
+                                <input required disabled={!this.state.isEditable} onChange = {this.handleChange} 
+                                type="number" min="1" step="1" className="form-control" name="phone" placeholder="Phone"
                                 value = {this.state.phone}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Street</label>
-                                <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
+                                <input required disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="street" placeholder="Street"
                                 value = {this.state.street}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >City</label>
-                                <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
+                                <input required disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="city" placeholder="City"
                                 value = {this.state.city}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >State</label>
-                                <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
+                                <input required disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="state" placeholder="State"
                                 value = {this.state.state}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Zip</label>
-                                <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
-                                type="text" className="form-control" name="zip" placeholder="Zip"
+                                <input required disabled={!this.state.isEditable} onChange = {this.handleChange} 
+                                type="number" min="1" step="1" className="form-control" name="zip" placeholder="Zip"
                                 value = {this.state.zip}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Cuisine</label>
-                                <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
+                                <input required disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="cuisine" placeholder="Cuisine"
                                 value = {this.state.cuisine}/>
                             </div>
@@ -249,6 +249,7 @@ class RestaurantProfile extends Component {
                                 {profileEdit}          
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
             

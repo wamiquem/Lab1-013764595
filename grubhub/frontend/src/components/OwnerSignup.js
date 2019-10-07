@@ -117,7 +117,7 @@ class OwnerSignup extends Component {
                 <Navbar/>
                 
                 <div className="container">
-                    
+                    <form onSubmit = {this.submitSignup}>
                     <div className="signup-form">
                         <div className="main-div">
                             <div className="panel">
@@ -127,30 +127,31 @@ class OwnerSignup extends Component {
                             </div>
                             
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="text" className="form-control" name="fname" placeholder="First Name"/>
+                                <input required onChange = {this.changeHandler} type="text" className="form-control" name="fname" placeholder="First Name"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="text" className="form-control" name="lname" placeholder="Last Name"/>
+                                <input required onChange = {this.changeHandler} type="text" className="form-control" name="lname" placeholder="Last Name"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="email" className="form-control" name="email" placeholder="Email"/>
+                                <input  required onChange = {this.changeHandler} type="email" className="form-control" name="email" placeholder="Email"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="password" className="form-control" name="password" placeholder="Password"/>
+                                <input required onChange = {this.changeHandler} type="password" className="form-control" name="password" placeholder="Password"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="text" className="form-control" name="phone" placeholder="Phone"/>
+                                <input required onChange = {this.changeHandler} type="number" min="1" step="1" className="form-control" name="phone" placeholder="Phone"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="text" className="form-control" name="restName" placeholder="Restaurant Name"/>
+                                <input required onChange = {this.changeHandler} type="text" className="form-control" name="restName" placeholder="Restaurant Name"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="text" className="form-control" name="restZip" placeholder="Restaurant Zip"/>
+                                <input required onChange = {this.changeHandler} type="number" min="1" step="1" className="form-control" name="restZip" placeholder="Restaurant Zip"/>
                             </div>
-                            <button onClick = {this.submitSignup} className="btn btn-primary">Create Account</button>                 
+                            <button type = "submit" className="btn btn-primary">Create Account</button>                 
                         </div>
                         <p>Have Account? <Link to="/owner/login" >Login</Link></p>
                     </div>
+                    </form>
                 </div>
             </div>
             

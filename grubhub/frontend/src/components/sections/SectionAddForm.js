@@ -71,6 +71,7 @@ class SectionAddForm extends Component {
             <div>
                 {redirectVar}
                 <div className="container">
+                    <form onSubmit = {this.submitAdd}>
                     <div className="add-section-form">
                         <div className="main-div">
                             <div className="panel">
@@ -78,14 +79,15 @@ class SectionAddForm extends Component {
                                 <h4>Add Section</h4>
                                 <hr/>
                                 <div style={{display:'flex'}}>
-                                    <input  onChange = {this.nameChangeHandler} 
+                                    <input required onChange = {this.nameChangeHandler} 
                                     type="text" className="form-control" name="name" placeholder="Name"/>
-                                    <button onClick = {this.submitAdd} className="btn btn-primary">Add</button>  
+                                    <button type="submit" className="btn btn-primary">Add</button>  
                                 </div>
                                 
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
             

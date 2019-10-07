@@ -142,6 +142,7 @@ class Checkout extends Component {
                 {redirectVar}
                 <Navbar/>
                 <div className="container">
+                <form onSubmit = {this.updateBuyerDetails}>
                     <div className="buyer-checkout">
                         <div className="main-div">
                             <div className="panel">
@@ -151,35 +152,36 @@ class Checkout extends Component {
                                 <h4>Please review address and phone</h4>
                                 <div style = {{display:'flex', flexWrap:'wrap'}}>
                                     <div className="form-group" style = {{paddingRight:'30px'}}>
-                                        <input type="text" className="form-control" name="street" placeholder="Street"
+                                        <input required type="text" className="form-control" name="street" placeholder="Street"
                                         onChange = {this.handleChange} value = {this.state.street}/>
                                     </div>
                                     <div className="form-group" style = {{paddingRight:'30px'}}>
-                                        <input type="text" className="form-control" name="unit" placeholder="Unit"
+                                        <input required type="text" className="form-control" name="unit" placeholder="Unit"
                                         onChange = {this.handleChange} value = {this.state.unit}/>
                                     </div>
                                     <div className="form-group" style = {{paddingRight:'30px'}}>
-                                        <input type="text" className="form-control" name="city" placeholder="City"
+                                        <input required type="text" className="form-control" name="city" placeholder="City"
                                         onChange = {this.handleChange} value = {this.state.city}/>
                                     </div>
                                     <div className="form-group" style = {{paddingRight:'30px'}}>
-                                        <input type="text" className="form-control" name="state" placeholder="State"
+                                        <input required type="text" className="form-control" name="state" placeholder="State"
                                         onChange = {this.handleChange} value = {this.state.state}/>
                                     </div>
                                     <div className="form-group" style = {{paddingRight:'30px'}}>
-                                        <input type="text" className="form-control" name="zip" placeholder="Zip"
+                                        <input required type="number" min="1" step="1" className="form-control" name="zip" placeholder="Zip"
                                         onChange = {this.handleChange} value = {this.state.zip}/>
                                     </div>
                                     <div className="form-group" style = {{paddingRight:'30px'}}>
-                                        <input type="text" className="form-control" name="phone" placeholder="Phone"
+                                        <input required type="number" min="1" step="1" className="form-control" name="phone" placeholder="Phone"
                                         onChange = {this.handleChange} value = {this.state.phone}/>
                                     </div>
                                 </div>
-                                <button onClick = {this.updateBuyerDetails} className="btn btn-primary btn-sm">Update Address and Phone</button><hr/>
+                                <button type= "submit" className="btn btn-primary btn-sm">Update Address and Phone</button><hr/>
                                 <button onClick = {this.placeOrder} className="btn btn-primary">Place Order</button> 
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         )

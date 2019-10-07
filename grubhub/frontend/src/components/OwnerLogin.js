@@ -100,7 +100,7 @@ class OwnerLogin extends Component {
                 <Navbar/>
                 
                 <div className="container">
-                    
+                <form onSubmit = {this.submitLogin}>
                     <div className="login-form">
                         <div className="main-div">
                             <div className="panel">
@@ -110,15 +110,16 @@ class OwnerLogin extends Component {
                             </div>
                             
                             <div className="form-group">
-                                <input onChange = {this.emailChangeHandler} type="email" className="form-control" name="email" placeholder="Email"/>
+                                <input required onChange = {this.emailChangeHandler} type="email" className="form-control" name="email" placeholder="Email"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.passwordChangeHandler} type="password" className="form-control" name="password" placeholder="Password"/>
+                                <input required onChange = {this.passwordChangeHandler} type="password" className="form-control" name="password" placeholder="Password"/>
                             </div>
-                            <button onClick = {this.submitLogin} className="btn btn-primary">Login</button>    
+                            <button type="submit" className="btn btn-primary">Login</button>    
                             <p><Link to="/owner/signup">Create Account</Link></p>             
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
             

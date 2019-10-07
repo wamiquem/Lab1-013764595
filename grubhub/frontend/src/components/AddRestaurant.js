@@ -111,7 +111,7 @@ class AddRestaurant extends Component {
                 <Navbar/>
                 
                 <div className="container">
-                    
+                    <form onSubmit = {this.submitAdd}>
                     <div className="signup-form">
                         <div className="main-div">
                             <div className="panel">
@@ -119,47 +119,33 @@ class AddRestaurant extends Component {
                                 <h2>Add Restaurant</h2>
                                 <p>Add your restaurant in order to get started</p>
                             </div>
-                            {/* <div class = "restaurant-image">
-                                <label>Image</label>
-                                <img className="rounded float-left img-thumbnail" id="pic" 
-                                 src={restImage} alt="Responsive image"></img>
-                            </div>
-                            <div>
-                                <form>
-                                    <div class="form-group rest-image">
-                                        <input className = "upload-image" type="file" id="upload" onChange= {this.handleFileUpload}/>
-                                        <button className = "btn btn-primary btn-sm" 
-                                        disabled={!this.state.isNewImage} type="submit" onClick={this.handleFileSubmit}>Change Pic
-                                        </button>
-                                    </div>
-                                </form>
-                            </div> */}
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="text" className="form-control" 
+                                <input required onChange = {this.changeHandler} type="text" className="form-control" 
                                 name="name" placeholder="Name" value = {this.state.name}/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="number" className="form-control" name="phone" placeholder="Phone"/>
+                                <input required onChange = {this.changeHandler} type="number" min="1" step="1" className="form-control" name="phone" placeholder="Phone"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="text" className="form-control" name="street" placeholder="Street"/>
+                                <input required onChange = {this.changeHandler} type="text" className="form-control" name="street" placeholder="Street"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="text" className="form-control" name="city" placeholder="City"/>
+                                <input required onChange = {this.changeHandler} type="text" className="form-control" name="city" placeholder="City"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="text" className="form-control" name="state" placeholder="State"/>
+                                <input required onChange = {this.changeHandler} type="text" className="form-control" name="state" placeholder="State"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="text" className="form-control" 
+                                <input required onChange = {this.changeHandler} type="number" min="1" step="1" className="form-control" 
                                 name="zip" placeholder="Zip" value = {this.state.zip}/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.changeHandler} type="text" className="form-control" name="cuisine" placeholder="Cuisine"/>
+                                <input required onChange = {this.changeHandler} type="text" className="form-control" name="cuisine" placeholder="Cuisine"/>
                             </div>
-                            <button onClick = {this.submitAdd} className="btn btn-primary">Add Restaurant</button>                 
+                            <button type="submit" className="btn btn-primary">Add Restaurant</button>                 
                         </div>
                     </div>
+                    </form>
                     <p>Have Account? <Link to="/owner/login" >Login</Link></p>
                 </div>
             </div>

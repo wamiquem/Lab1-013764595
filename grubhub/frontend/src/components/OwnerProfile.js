@@ -167,7 +167,7 @@ class OwnerProfile extends Component {
             
             profileUpdate = (
                 <div className = "btn-toolbar">
-                    <button onClick = {this.updateProfile} className="btn btn-success">Update</button>
+                    <button type = "submit" className="btn btn-success">Update</button>
                     <button onClick = {this.cancelEdit} className="btn btn-danger">Cancel</button>
                 </div>
             );
@@ -183,7 +183,7 @@ class OwnerProfile extends Component {
             <div>
                 
                 <div className="container">
-                    
+                    <form onSubmit = {this.updateProfile}>
                     <div className="profile-form">
                         <div className="main-div">
                             <div className="panel">
@@ -199,39 +199,40 @@ class OwnerProfile extends Component {
                             {imageEdit}
                             <div className="form-group form-inline">
                                 <label >First Name</label>
-                                <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
+                                <input required disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="fname" placeholder="First Name"
                                 value = {this.state.fname}/>
                             
                             </div>
                             <div className="form-group form-inline">
                                 <label >Last Name</label>
-                                <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
+                                <input required disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="lname" placeholder="Last Name"
                                 value = {this.state.lname}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Phone</label>
-                                <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
-                                type="number" className="form-control" name="phone" placeholder="Phone"
+                                <input required disabled={!this.state.isEditable} onChange = {this.handleChange} 
+                                type="number" min="1" step="1" className="form-control" name="phone" placeholder="Phone"
                                 value = {this.state.phone}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Restaurant Name</label>
-                                <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
+                                <input required disabled={!this.state.isEditable} onChange = {this.handleChange} 
                                 type="text" className="form-control" name="restName" placeholder="Restaurant Name"
                                 value = {this.state.restName}/>
                             </div>
                             <div className="form-group form-inline">
                                 <label >Restaurant Zip</label>
-                                <input disabled={!this.state.isEditable} onChange = {this.handleChange} 
-                                type="text" className="form-control" name="restZip" placeholder="Restaurant Zip"
+                                <input required disabled={!this.state.isEditable} onChange = {this.handleChange} 
+                                type="number" min="1" step="1" className="form-control" name="restZip" placeholder="Restaurant Zip"
                                 value = {this.state.restZip}/>
                             </div>
                                 {profileUpdate}   
                                 {profileEdit}                  
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
             

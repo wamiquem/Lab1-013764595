@@ -118,7 +118,7 @@ class BuyerSignup extends Component {
                 <Navbar/>
                 
                 <div className="container">
-                    
+                <form onSubmit = {this.submitSignup} >
                     <div className="signup-form">
                         <div className="main-div">
                             <div className="panel">
@@ -128,21 +128,22 @@ class BuyerSignup extends Component {
                             </div>
                             
                             <div className="form-group">
-                                <input onChange = {this.fnameChangeHandler} type="text" className="form-control" name="fname" placeholder="First Name"/>
+                                <input required onChange = {this.fnameChangeHandler} type="text" className="form-control" name="fname" placeholder="First Name"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.lnameChangeHandler} type="text" className="form-control" name="lname" placeholder="Last Name"/>
+                                <input required onChange = {this.lnameChangeHandler} type="text" className="form-control" name="lname" placeholder="Last Name"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.emailChangeHandler} type="email" className="form-control" name="email" placeholder="Email"/>
+                                <input required onChange = {this.emailChangeHandler} type="email" className="form-control" name="email" placeholder="Email"/>
                             </div>
                             <div className="form-group">
-                                <input onChange = {this.passwordChangeHandler} type="password" className="form-control" name="password" placeholder="Password"/>
+                                <input required onChange = {this.passwordChangeHandler} type="password" className="form-control" name="password" placeholder="Password"/>
                             </div>
-                            <button onClick = {this.submitSignup} className="btn btn-primary">Create Account</button>
+                            <button type= "submit" className="btn btn-primary">Create Account</button>
                             <p>Have Account? <Link to="/buyer/login" >Login</Link></p>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
             
